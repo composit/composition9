@@ -19,6 +19,8 @@ Rails::Initializer.run do |config|
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "sqlite3-ruby", :lib => "sqlite3"
   # config.gem "aws-s3", :lib => "aws/s3"
+  config.gem "prawn"
+  config.gem "openrain-action_mailer_tls", :lib => "smtp_tls.rb", :source => "http://gems.github.com"
 
   # Only load the plugins named here, in the order given (default is alphabetical).
   # :all can be used as a placeholder for all plugins not explicitly named
@@ -38,4 +40,60 @@ Rails::Initializer.run do |config|
   # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
   # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}')]
   # config.i18n.default_locale = :de
+
+  STATE_NAMES = [
+    [ "Alabama", "AL" ], 
+    [ "Alaska", "AK" ], 
+    [ "Arizona", "AZ" ], 
+    [ "Arkansas", "AR" ], 
+    [ "California", "CA" ], 
+    [ "Colorado", "CO" ], 
+    [ "Connecticut", "CT" ], 
+    [ "Delaware", "DE" ], 
+    [ "District Of Columbia", "DC" ], 
+    [ "Florida", "FL" ], 
+    [ "Georgia", "GA" ], 
+    [ "Hawaii", "HI" ], 
+    [ "Idaho", "ID" ], 
+    [ "Illinois", "IL" ], 
+    [ "Indiana", "IN" ], 
+    [ "Iowa", "IA" ], 
+    [ "Kansas", "KS" ], 
+    [ "Kentucky", "KY" ], 
+    [ "Louisiana", "LA" ], 
+    [ "Maine", "ME" ], 
+    [ "Maryland", "MD" ], 
+    [ "Massachusetts", "MA" ], 
+    [ "Michigan", "MI" ], 
+    [ "Minnesota", "MN" ], 
+    [ "Mississippi", "MS" ], 
+    [ "Missouri", "MO" ], 
+    [ "Montana", "MT" ], 
+    [ "Nebraska", "NE" ], 
+    [ "Nevada", "NV" ], 
+    [ "New Hampshire", "NH" ], 
+    [ "New Jersey", "NJ" ], 
+    [ "New Mexico", "NM" ], 
+    [ "New York", "NY" ], 
+    [ "North Carolina", "NC" ], 
+    [ "North Dakota", "ND" ], 
+    [ "Ohio", "OH" ], 
+    [ "Oklahoma", "OK" ], 
+    [ "Oregon", "OR" ], 
+    [ "Pennsylvania", "PA" ], 
+    [ "Rhode Island", "RI" ], 
+    [ "South Carolina", "SC" ], 
+    [ "South Dakota", "SD" ], 
+    [ "Tennessee", "TN" ], 
+    [ "Texas", "TX" ], 
+    [ "Utah", "UT" ], 
+    [ "Vermont", "VT" ], 
+    [ "Virginia", "VA" ], 
+    [ "Washington", "WA" ], 
+    [ "West Virginia", "WV" ], 
+    [ "Wisconsin", "WI" ], 
+    [ "Wyoming", "WY" ]
+  ]
+  WEEK_DOLLAR_ESTIMATE = 1300
+  WEEK_HOUR_ESTIMATE = 55
 end
