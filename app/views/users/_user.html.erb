@@ -1,0 +1,2 @@
+<%= render :partial => '/users/worker', :object => user if user.is_worker? %>
+<%= render :partial => '/users/client_user', :object => user unless user.is_worker? %>

@@ -1,0 +1,27 @@
+<div class="project_ticket">
+  <div class="info">
+    <div class="description"><%=h project_ticket.description %></div>
+    <div class="hours"><%=h one_dec(project_ticket.hours_worked) %> / <%=h one_dec(project_ticket.estimated_hours) %></div>
+  </div>
+  <%= render :partial => "/ticket_comments/ticket_comment", :collection => project_ticket.ticket_comments %>
+  <div id="ticket_<%=h project_ticket.id %>_new_comment_form" style="display:none">
+    <% remote_form_for(project_ticket.new_ticket_comment(current_user.id), :update => "projects_client") do |f| %>
+      <%= f.hidden_field :ticket_id %>
+      <%= f.hidden_field :user_id %>
+      <%= f.text_area :comment, :rows => "2", :cols => "60" %>
+      <%= f.submit "add comment" %>
+    <% end %>
+  </div>
+  <div class="thing_controls">
+    <% if current_user.is_admin && project_status == 'open' %>
+      <%= render :partial => '/ticket_times/new_ticket_time', :object => current_user.new_ticket_time(project_ticket.id) %>
+      <div class='control'>
+        <%= render :partial => '/tickets/ticket_to_close', :object => project_ticket %>
+      </div>
+    <% end %>
+    <div class='control'>
+      <%= link_to_function "new comment &middot;&nbsp;", "document.getElementById('ticket_" + project_ticket.id.to_s + "_new_comment_form').style.display = 'block'" if project_status == 'open' %>
+    </div>
+    <div class='clear'></div>
+  </div>
+</div>

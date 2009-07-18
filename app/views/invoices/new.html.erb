@@ -1,0 +1,24 @@
+<h1><%=h @client.name  %></h1>
+<% form_for(@invoice) do |f| %>
+  <%= f.error_messages %>
+
+  <%= f.hidden_field :client_id %>
+  <p>
+    <%= f.label :invoice_date %><br />
+    <%= f.date_select :invoice_date %>
+  </p>
+  <% for ticket_time in @client.unbilled_ticket_times %>
+    <div class='invoice_ticket_time'>
+      <div class='check'><%= check_box_tag 'invoice[include_ticket_times][' + ticket_time.id.to_s + ']', '1', :value => '1' %></div>
+      <div class='description'><%=h ticket_time.ticket.project.title + ': ' + ticket_time.ticket.description %></div>
+      <div class='date'><%=h ticket_time.start_time.strftime('%m-%d-%Y') %></div>
+      <div class='hours'><%=h one_dec( ticket_time.hours_worked ) %></div>
+    </div>
+    <div class='clear'></div>
+  <% end %>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', invoices_path %>

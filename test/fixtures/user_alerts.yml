@@ -1,0 +1,11 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  alert: one
+  user: two
+  hidden_time:
+
+two:
+  alert: one
+  user: two
+  hidden_time: 2008-09-13 17:40:26

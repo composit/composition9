@@ -1,0 +1,24 @@
+<h1>Listing user_alerts</h1>
+
+<table>
+  <tr>
+    <th>Alert</th>
+    <th>User</th>
+    <th>Hidden time</th>
+  </tr>
+
+<% for user_alert in @user_alerts %>
+  <tr>
+    <td><%=h user_alert.alert_id %></td>
+    <td><%=h user_alert.user_id %></td>
+    <td><%=h user_alert.hidden_time %></td>
+    <td><%= link_to 'Show', user_alert %></td>
+    <td><%= link_to 'Edit', edit_user_alert_path(user_alert) %></td>
+    <td><%= link_to 'Destroy', user_alert, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New user_alert', new_user_alert_path %>

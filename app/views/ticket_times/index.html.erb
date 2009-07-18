@@ -1,0 +1,28 @@
+<h1>Listing ticket_times</h1>
+
+<table>
+  <tr>
+    <th>Ticket</th>
+    <th>User</th>
+    <th>Start time</th>
+    <th>End time</th>
+    <th>Invoice</th>
+  </tr>
+
+<% for ticket_time in @ticket_times %>
+  <tr>
+    <td><%=h ticket_time.ticket_id %></td>
+    <td><%=h ticket_time.user_id %></td>
+    <td><%=h ticket_time.start_time %></td>
+    <td><%=h ticket_time.end_time %></td>
+    <td><%=h ticket_time.invoice_id %></td>
+    <td><%= link_to 'Show', ticket_time %></td>
+    <td><%= link_to 'Edit', edit_ticket_time_path(ticket_time) %></td>
+    <td><%= link_to 'Destroy', ticket_time, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ticket_time', new_ticket_time_path %>

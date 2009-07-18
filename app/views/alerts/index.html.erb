@@ -1,0 +1,30 @@
+<h1>Listing alerts</h1>
+
+<table>
+  <tr>
+    <th>Action statement</th>
+    <th>Client</th>
+    <th>Project</th>
+    <th>Ticket</th>
+    <th>Ticket comment</th>
+    <th>User</th>
+  </tr>
+
+<% for alert in @alerts %>
+  <tr>
+    <td><%=h alert.action_statement %></td>
+    <td><%=h alert.client_id %></td>
+    <td><%=h alert.project_id %></td>
+    <td><%=h alert.ticket_id %></td>
+    <td><%=h alert.ticket_comment_id %></td>
+    <td><%=h alert.user_id %></td>
+    <td><%= link_to 'Show', alert %></td>
+    <td><%= link_to 'Edit', edit_alert_path(alert) %></td>
+    <td><%= link_to 'Destroy', alert, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New alert', new_alert_path %>

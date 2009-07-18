@@ -1,0 +1,23 @@
+<p>
+  <b>User:</b>
+  <%=h @user_pause.user_id %>
+</p>
+
+<p>
+  <b>Pause:</b>
+  <%=h @user_pause.pause_id %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%=h @user_pause.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%=h @user_pause.end_time %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_pause_path(@user_pause) %> |
+<%= link_to 'Back', user_pauses_path %>

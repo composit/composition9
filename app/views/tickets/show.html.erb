@@ -1,0 +1,28 @@
+<p>
+  <b>Project:</b>
+  <%=h @ticket.project_id %>
+</p>
+
+<p>
+  <b>Created by user:</b>
+  <%=h @ticket.created_by_user_id %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%=h @ticket.description %>
+</p>
+
+<p>
+  <b>Closed date:</b>
+  <%=h @ticket.closed_date %>
+</p>
+
+<p>
+  <b>Estimated hours:</b>
+  <%=h @ticket.estimated_hours %>
+</p>
+
+
+<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
+<%= link_to 'Back', tickets_path %>

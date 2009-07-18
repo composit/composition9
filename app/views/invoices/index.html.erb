@@ -1,0 +1,82 @@
+<%= '<h1>' + @client.name + '</h1>' if @client %>
+<% for invoice in @invoices %>
+  <div class='invoice'>
+    <div class='date'><%=h invoice.invoice_date.strftime('%m-%d-%Y') %></div>
+    <div class='number'><%= link_to invoice.invoice_number, formatted_invoice_path(invoice, :pdf) %></div>
+    <div class='payment_status'><span class='<%=h invoice.payment_status %>'><%=h invoice.payment_status %><span></div>
+    <div class='amount'><%=h number_to_currency(invoice.total_amount.to_f) %></div>
+    <div class='paypal'>
+      <% if invoice.paid_date.blank? %>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+          <input type="hidden" name="cmd" value="_xclick" />
+          <input type="hidden" name="business" value="design@composition9.com" />
+          <input type="hidden" name="item_name" value="development services" />
+          <input type="hidden" name="item_number" value="<%=h invoice.invoice_number %>" />
+          <input type="hidden" name="quantity" value="1" />
+          <input type="hidden" name="amount" value="<%=h invoice.total_amount %>" />
+          <input type="hidden" name="shipping" value="0.00" />
+          <input type="hidden" name="no_shipping" value="1" />
+          <input type="hidden" name="no_note" value="1" />
+          <input type="hidden" name="currency_code" value="USD" />
+          <input type="hidden" name="tax" value="0.00" />
+          <input type="hidden" name="notify_url" value="https://www.composition9.com/invoices/paypal_notify" />
+          <input type="hidden" name="return" value="https://www.composition9.com/invoices?client_id=<%=h invoice.client_id %>" />
+          <input type="hidden" name="address1" value="<%=h invoice.client.address_line_1 %>" />
+          <input type="hidden" name="address2" value="<%=h invoice.client.address_line_2 %>" />
+          <input type="hidden" name="city" value="<%=h invoice.client.city %>" />
+          <input type="hidden" name="state" value="<%=h invoice.client.state %>" />
+          <input type="hidden" name="zip" value="<%=h invoice.client.zip %>" />
+          <input type="hidden" name="country" value="US" />
+          <input type="hidden" name="lc" value="US" />
+          <input type="hidden" name="bn" value="PP-BuyNowBF" />
+          <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_paynow_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+          <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+        </form>
+      <% end %>
+    </div>
+    <% if current_user.is_admin %>
+      <div class='delete'>
+        <%= link_to "delete", invoice, :confirm => 'Are you sure?', :method => :delete %>
+      </div>
+    <% end %>
+  </div>
+  <div class='clear'></div>
+<% end %>
+<% if @client && @client.total_unpaid_invoice_value > 0 %>
+  <div class='invoice'>
+    <div class='total_unpaid'><b>TOTAL UNPAID</b></div>
+    <div class='payment_status'><span class='unpaid'>unpaid</span></div>
+    <div class='amount'><%=h number_to_currency( @client.total_unpaid_invoice_value ) %></div>
+    <div class='paypal'>
+      <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+        <input type="hidden" name="cmd" value="_xclick" />
+        <input type="hidden" name="business" value="design@composition9.com" />
+        <input type="hidden" name="item_name" value="development services - multiple invoices" />
+        <input type="hidden" name="quantity" value="1" />
+        <input type="hidden" name="amount" value="<%=h @client.total_unpaid_invoice_value %>" />
+        <input type="hidden" name="shipping" value="0.00" />
+        <input type="hidden" name="no_shipping" value="1" />
+        <input type="hidden" name="no_note" value="1" />
+        <input type="hidden" name="currency_code" value="USD" />
+        <input type="hidden" name="tax" value="0.00" />
+        <input type="hidden" name="notify_url" value="https://www.composition9.com/invoices/paypal_notify" />
+        <input type="hidden" name="return" value="https://www.composition9.com/invoices?client_id=<%=h @client.id %>" />
+        <input type="hidden" name="address1" value="<%=h @client.address_line_1 %>" />
+        <input type="hidden" name="address2" value="<%=h @client.address_line_2 %>" />
+        <input type="hidden" name="city" value="<%=h @client.city %>" />
+        <input type="hidden" name="state" value="<%=h @client.state %>" />
+        <input type="hidden" name="zip" value="<%=h @client.zip %>" />
+        <input type="hidden" name="country" value="US" />
+        <input type="hidden" name="lc" value="US" />
+        <input type="hidden" name="bn" value="PP-BuyNowBF" />
+        <input type="image" src="https://www.paypal.com/en_US/i/btn/btn_paynow_SM.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!" />
+        <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1">
+      </form>
+    </div>
+  </div>
+  <div class='clear'></div>
+<% end %>
+
+<br />
+
+<%= link_to 'New invoice', new_invoice_path( :client_id => @client.id ) if current_user.is_admin && @client %>

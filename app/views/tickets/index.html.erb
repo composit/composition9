@@ -1,0 +1,28 @@
+<h1>Listing tickets</h1>
+
+<table>
+  <tr>
+    <th>Project</th>
+    <th>Created by user</th>
+    <th>Description</th>
+    <th>Closed date</th>
+    <th>Estimated hours</th>
+  </tr>
+
+<% for ticket in @tickets %>
+  <tr>
+    <td><%=h ticket.project_id %></td>
+    <td><%=h ticket.created_by_user_id %></td>
+    <td><%=h ticket.description %></td>
+    <td><%=h ticket.closed_date %></td>
+    <td><%=h ticket.estimated_hours %></td>
+    <td><%= link_to 'Show', ticket %></td>
+    <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
+    <td><%= link_to 'Destroy', ticket, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ticket', new_ticket_path %>

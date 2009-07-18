@@ -1,0 +1,31 @@
+<ul id='nav_menu'>
+  <% if nav_user.is_admin %>
+    <% if params[:controller] == 'clients' %>
+      <li class='current'>clients</li>
+    <% else %>
+      <li><%= link_to "clients", clients_path %></li>
+    <% end %>
+  <% end %>
+  <% if params[:client_id] %>
+    <% if nav_user.can_view_client_invoices?(params[:client_id]) || nav_user.is_admin %>
+      <% if params[:controller] == 'projects' %>
+        <li class='current'>projects</li>
+      <% else %>
+        <li><%= link_to "projects", projects_path( :client_id => params[:client_id] ) %></li>
+      <% end %>
+      <% if params[:controller] == 'invoices' %>
+        <li class='current'>invoices</li>
+      <% else %>
+        <li><%= link_to "invoices", invoices_path( :client_id => params[:client_id] ) %></li>
+      <% end %>
+    <% end %>
+  <% elsif nav_user.is_admin %>
+    <% if params[:controller] == 'invoices' %>
+      <li class='current'>all invoices</li>
+    <% else %>
+      <li><%= link_to "all invoices", invoices_path %></li>
+    <% end %>
+  <% end %>
+  <li><%= link_to "logout", '/logout' %></li>
+</ul>
+<div class='clear'></div>

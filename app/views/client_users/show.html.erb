@@ -1,0 +1,23 @@
+<p>
+  <b>Client:</b>
+  <%=h @client_user.client_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @client_user.user_id %>
+</p>
+
+<p>
+  <b>Is worker:</b>
+  <%=h @client_user.is_worker %>
+</p>
+
+<p>
+  <b>Can view invoices:</b>
+  <%=h @client_user.can_view_invoices %>
+</p>
+
+
+<%= link_to 'Edit', edit_client_user_path(@client_user) %> |
+<%= link_to 'Back', client_users_path %>

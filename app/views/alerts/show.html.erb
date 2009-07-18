@@ -1,0 +1,33 @@
+<p>
+  <b>Action statement:</b>
+  <%=h @alert.action_statement %>
+</p>
+
+<p>
+  <b>Client:</b>
+  <%=h @alert.client_id %>
+</p>
+
+<p>
+  <b>Project:</b>
+  <%=h @alert.project_id %>
+</p>
+
+<p>
+  <b>Ticket:</b>
+  <%=h @alert.ticket_id %>
+</p>
+
+<p>
+  <b>Ticket comment:</b>
+  <%=h @alert.ticket_comment_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @alert.user_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_alert_path(@alert) %> |
+<%= link_to 'Back', alerts_path %>

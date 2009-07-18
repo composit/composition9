@@ -1,0 +1,44 @@
+<div id='clients' class='clients'>
+  <% for client in @clients %>
+    <div class='client' id='client_user_<%=h client.client_users.find_by_user_id(current_user.id).id %>'>
+      <div class='name'><%= link_to client.name, :controller => "projects", :client_id => client.id %></div>
+      <div class='week_hours'><%=h one_dec(client.hours_worked(Time.zone.now)) %> / <%=h one_dec(client.committed_week_hours) %></div>
+      <div class='open_hours'>
+        <div class='urgency urgency_1'><%=h one_dec(client.open_hours(1)) %></div>
+        <div class='urgency urgency_2'><%=h one_dec(client.open_hours(2)) %></div>
+        <div class='urgency urgency_3'><%=h one_dec(client.open_hours(3)) %></div>
+      </div>
+      <div class='active_toggle'>
+        <% client.active = false %>
+        <% form_for( client, :html => { :id => 'deactivate_client_' + client.id.to_s } ) do |f| %>
+          <%= f.hidden_field :active %>
+        <% end %>
+        <%= link_to_function "deactivate", "document.forms['deactivate_client_" + client.id.to_s + "'].submit()" %>
+      </div>
+      <div class='clear'></div>
+    </div>
+  <% end %>
+</div>
+
+<%= link_to_function "show inactive clients", "document.getElementById('inactive_clients').style.display = 'block'" %>
+<div id='inactive_clients' class='clients' style='display:none'>
+  <% for client in @inactive_clients %>
+    <div class='client'>
+      <div class='name'><%= link_to client.name, :controller => "projects", :client_id => client.id %></div>
+      <div class='active_toggle'>
+        <% client.active = true %>
+        <% form_for( client, :html => { :id => 'activate_client_' + client.id.to_s } ) do |f| %>
+          <%= f.hidden_field :active %>
+        <% end %>
+        <%= link_to_function "activate", "document.forms['activate_client_" + client.id.to_s + "'].submit()" %>
+      </div>
+      <div class='clear'></div>
+    </div>
+  <% end %>
+</div>
+
+<%= sortable_element('clients', :url => {:controller => 'client_users', :action => 'update'}, :constraint => :vertical, :tag => 'div') %>
+
+<br />
+
+<%= link_to 'New client', new_client_path %>

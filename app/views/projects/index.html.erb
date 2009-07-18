@@ -1,0 +1,18 @@
+<% if @project_status == 'closed' %>
+  <%= link_to "show open tickets", projects_path( :client_id => @client.id ) %>
+<% else %>
+  <%= link_to "show closed tickets", projects_path( :client_id => @client.id, :project_status => 'closed' ) %>
+<% end %>
+<% if @client && (current_user.is_admin || current_user.is_client_admin?(@client.id)) %>
+  <h1><%= link_to @client.name, edit_client_path(@client) %></h1>
+<% elsif @client %>
+  <h1><%=h @client.name %></h1>
+<% end %>
+
+<div id="projects_client">
+  <% if @project_status == 'closed' %>
+    <%= render :partial => '/projects/project', :collection => @closed_projects, :locals => { :expanded_project => @expanded_project, :project_status => 'closed' } %>
+  <% else %>
+    <%= render :partial => "/projects/projects_client", :object => @client, :locals => { :expanded_project => @expanded_project, :project_status => 'open' } %>
+  <% end %>
+</div>

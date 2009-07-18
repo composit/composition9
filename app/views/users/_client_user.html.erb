@@ -1,0 +1,20 @@
+<div id="current_block">
+  <% client_user.clients.each do |client| %>
+    <% client.workers.each do |worker| %>
+      <% if worker.user.open_ticket_time %>
+        <div class="name">
+          <%= worker.user.login %> is currently working:<br />
+          <% if client_user.clients.include? worker.user.open_ticket_time.ticket.project.client %>
+            <%= worker.user.open_ticket_time.ticket.full_description %>
+          <% else %>
+            (outside the scope of this client)
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+    <div class='week_hours'>This week: <%=h one_dec(client.hours_worked(Time.zone.now)) %> / <%=h one_dec(client.committed_week_hours) %> hours</div>
+  <% end %>
+</div>
+<div id="alerts_block">
+  <%= render :partial => '/users/active_alert', :collection => current_user.active_alerts %>
+</div>

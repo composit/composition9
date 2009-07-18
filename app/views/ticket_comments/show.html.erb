@@ -1,0 +1,18 @@
+<p>
+  <b>Ticket:</b>
+  <%=h @ticket_comment.ticket_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @ticket_comment.user_id %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%=h @ticket_comment.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_ticket_comment_path(@ticket_comment) %> |
+<%= link_to 'Back', ticket_comments_path %>

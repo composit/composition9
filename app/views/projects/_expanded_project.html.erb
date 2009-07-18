@@ -1,0 +1,27 @@
+<div class="thing_controls">
+  <%=h expanded_project.open_tickets.length.to_s + " " + (expanded_project.open_tickets.length == 1 ? "ticket" : "tickets") %>: <%= link_to_remote "hide", :update => "project_" + expanded_project.id.to_s + "_tickets", :url => project_path(expanded_project, :collapser => true), :method => :get %>
+</div>
+<div id="project_<%=h expanded_project.id %>_tickets">
+  <%= render :partial => "/tickets/project_ticket", :collection => ( project_status == 'closed' ? expanded_project.tickets : expanded_project.open_tickets ), :locals => { :project_status => project_status } %>
+</div>
+<div id="project_<%=h expanded_project.id %>_new_ticket_form" style="display:none">
+  <% remote_form_for(expanded_project.new_ticket(current_user.id), :update => "projects_client") do |f| %>
+    <%= f.hidden_field :project_id %>
+    <%= f.hidden_field :created_by_user_id %>
+    <p>
+      Brief description (add details in the comments)<br />
+      <%= f.text_field :description, :size => "60" %>
+    </p>
+    <% if current_user.is_admin %>
+      <p>
+        Estimated hours<br />
+        <%= f.text_field :estimated_hours, :size => "5" %>
+      </p>
+    <% end %>
+    <%= f.hidden_field :priority %>
+    <p>
+      <%= f.submit "create ticket" %>
+    </p>
+  <% end %>
+</div>
+<div class="thing_controls"><%= link_to_function "new ticket", "document.getElementById('project_" + expanded_project.id.to_s + "_new_ticket_form').style.display = 'block'" if current_user.is_admin && project_status == 'open' %></div>

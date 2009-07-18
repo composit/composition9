@@ -1,0 +1,28 @@
+<p>
+  <b>Ticket:</b>
+  <%=h @ticket_time.ticket_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @ticket_time.user_id %>
+</p>
+
+<p>
+  <b>Start time:</b>
+  <%=h @ticket_time.start_time %>
+</p>
+
+<p>
+  <b>End time:</b>
+  <%=h @ticket_time.end_time %>
+</p>
+
+<p>
+  <b>Invoice:</b>
+  <%=h @ticket_time.invoice_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_ticket_time_path(@ticket_time) %> |
+<%= link_to 'Back', ticket_times_path %>

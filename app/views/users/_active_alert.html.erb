@@ -1,0 +1,14 @@
+<div class='alert'>
+  <%=h active_alert.user.login %>
+  <%=h active_alert.action_statement %>
+  <%=h active_alert.updated_at.strftime("on %m-%d-%Y at %H:%M:%S") %>
+  <div class='controls'>
+    <%= link_to_function "close", "document.forms['alert_closer_" + active_alert.user_alerts.find_by_user_id(current_user.id).id.to_s + "'].onsubmit()" %>
+  </div>
+  <% remote_form_for active_alert.user_alerts.find_by_user_id(current_user.id), :update => "user_block", :html => { :id => 'alert_closer_' + active_alert.user_alerts.find_by_user_id(current_user.id).id.to_s } do |f| %>
+    <%= f.hidden_field :hide_me, :value => 1 %>
+  <% end %>
+  <%= link_to active_alert.client.name, projects_path(:client_id => active_alert.client) if active_alert.client %>
+  <%= link_to ": " + active_alert.project.title, projects_path( url_params( active_alert ) ) if active_alert.project %>
+  <%= link_to ": " + active_alert.ticket.description, projects_path( url_params( active_alert ) ) if active_alert.ticket %>
+</div>

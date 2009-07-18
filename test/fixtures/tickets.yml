@@ -1,0 +1,71 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+# client: one
+  project: one
+  created_by_user: one
+  description: Do something related to this project
+  closed_date: 
+  estimated_hours: 1.5
+  priority: 1
+  worker: one
+
+two:
+# client: one
+  project: one
+  created_by_user: two
+  description: another thing to do
+  closed_date:
+  estimated_hours: 10
+  priority: 2
+  worker: one
+
+three:
+# client: two
+  project: three
+  created_by_user: two
+  description: and another thing to do
+  closed_date: <%= 1.day.ago.to_s :db %>
+  estimated_hours: 20
+  priority: 3
+  worker: one
+
+four:
+# client: one
+  project: two
+  created_by_user: one
+  description: go to the store
+  closed_date:
+  estimated_hours: 8
+  priority: 4
+  worker: one
+
+five:
+# client: two
+  project: four
+  created_by_user: one
+  description: eat a bagel
+  closed_date:
+  estimated_hours: 12
+  priority: 5
+  worker: one
+
+six:
+# client: three
+  project: five
+  created_by_user: one
+  description: put on your flip-flops
+  closed_date:
+  estimated_hours: 1
+  priority: 1
+  worker: one
+
+seven:
+# client: three
+  project: five
+  created_by_user: three
+  description: put on your best hat
+  closed_date:
+  estimated_hours: 1
+  priority: 1
+  worker: three

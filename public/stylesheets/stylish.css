@@ -1,0 +1,378 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+body {
+  line-height: 1;
+  min-width: 800px;
+  background-image: url(/images/bg.gif);
+  font-family: helvetica, arial, sans-serif;
+}
+ol, ul {
+  list-style: none;
+}
+blockquote, q {
+  quotes: none;
+}
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+/* remember to define focus styles! */
+:focus {
+  outline: 0;
+}
+
+/* remember to highlight inserts somehow! */
+ins {
+  text-decoration: none;
+}
+del {
+  text-decoration: line-through;
+}
+
+/* tables still need 'cellspacing="0"' in the markup */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+table tr td, table tr th {
+  padding: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: #6F8F8F;
+}
+
+a:visited {
+  color: #8F6F6F;
+}
+
+div#wrapper {
+  position: relative;
+}
+
+div#column {
+  width: 600px;
+  margin-left: auto;
+  margin-right:auto;
+  background-color: #000;
+  filter:alpha(opacity=80);
+  -moz-opacity:.8;
+  opacity:.8;
+  color: #fff;
+  padding: 30px;
+}
+
+p {
+  padding: 10px 0;
+}
+
+h1 {
+  padding: 10px 0;
+  font-size: 1.4em;
+  font-family: Verdana, Geneva, sans-serif;
+  color: #bfb;
+}
+
+h2 {
+  padding: 10px 0;
+  font-size: 1.1em;
+  color: #fff;
+}
+
+.urgency_1 {
+  color: #f00;
+  }
+
+  .urgency_1 a {
+    color: #f00;
+  }
+
+.urgency_2 {
+  color: #d66;
+  }
+
+  .urgency_2 a {
+    color: #d66;
+  }
+
+.urgency_3 {
+  color: #a99;
+  }
+
+  .urgency_3 a {
+    color: #a99;
+  }
+
+div.clear {
+  clear: both;
+}
+
+div#footer {
+  margin: 20px 0;
+}
+
+div#flash-notice {
+  color: #0f0;
+}
+
+div#user_block {
+  }
+
+  div#user_block div#current_block {
+    }
+
+    div#user_block div#current_block div.name {
+    }
+
+    div#user_block div#current_block div.times {
+      }
+
+      div#user_block div#current_block div.times input {
+        border: 0;
+        color: #fff;
+        background: transparent;
+      }
+
+div.clients {
+  }
+
+  div.clients div.client {
+    }
+
+    div.clients div.client div.name {
+      float: left;
+      width: 200px;
+    }
+
+    div.clients div.client div.week_hours {
+      float: left;
+      width: 80px;
+    }
+
+    div.clients div.client div.open_hours {
+      float: left;
+      width: 150px;
+      }
+
+      div.clients div.client div.open_hours div.urgency {
+        float: left;
+        width: 50px;
+      }
+
+    div.clients div.client div.active_toggle {
+      float: left;
+      width: 80px;
+    }
+
+div.urgency_header {
+  font-size: .8em;
+  line-height: .6em;
+  border-bottom: 1px solid #fff;
+}
+
+div.project {
+  background-color: #222;
+  padding: 4px;
+  margin: 8px 0;
+  }
+
+  div.project div.info {
+    overflow: hidden;
+    }
+
+    div.project div.info div.title {
+      width: 480px;
+      font-weight: bold;
+      font-size: 1.1em;
+      float: left;
+      overflow: hidden;
+    }
+
+    div.project div.info div.hours {
+      float: left;
+      width: 100px;
+    }
+
+div.project_ticket {
+  color: #ddd;
+  border-top: 1px solid #555;
+  padding: 10px 0;
+  position: relative;
+  }
+
+  div.project_ticket div.info {
+    }
+
+    div.project_ticket div.info div.description {
+      font-size: 1.1em;
+      float: left;
+      width: 480px;
+    }
+
+    div.project_ticket div.info div.hours {
+      float: left;
+      width: 100px;
+    }
+
+div.ticket_comment {
+  color: #999;
+}
+
+div.thing_controls {
+  font-size: .8em;
+  padding-top: .2em;
+  line-height: .6em;
+  text-align: right;
+  }
+
+  div.thing_controls div.control {
+    float: right;
+  }
+
+div.dragger {
+  color: #6F8F8F;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+div#alerts_block {
+  }
+
+  div#alerts_block div.alert {
+    font-size: .8em;
+    color: #f00;
+    margin: 20px 0 10px 0;
+    background-color: #422;
+    }
+
+    div#alerts_block div.alert div.controls {
+      float: right;
+    }
+
+ul#nav_menu {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px 0;
+  }
+
+  ul#nav_menu li {
+    padding: 10px;
+    float: left;
+  }
+
+  ul#nav_menu li.current {
+    background-color: #222;
+  }
+
+  ul#nav_menu li:hover {
+    background-color: #222;
+  }
+
+div.invoice {
+  }
+
+  div.invoice div.date {
+    float: left;
+    width: 100px;
+  }
+
+  div.invoice div.number {
+    float: left;
+    width: 100px;
+  }
+
+  div.invoice div.payment_status {
+    float: left;
+    width: 100px;
+    }
+
+    div.invoice div.payment_status span.paid {
+      color: #0f0;
+    }
+
+    div.invoice div.payment_status span.unpaid {
+      color: #d66;
+    }
+
+    div.invoice div.payment_status span.overdue {
+      color: #f00;
+    }
+
+  div.invoice div.amount {
+    float: left;
+    width: 100px;
+    text-align: right;
+    padding-right: 20px;
+  }
+
+  div.invoice div.paypal {
+    float: left;
+    width: 100px;
+  }
+
+  div.invoice div.total_unpaid {
+    float: left;
+    font-size: 1.2em;
+    width: 200px;
+  }
+
+div.invoice_ticket_time {
+  }
+
+  div.invoice_ticket_time div.check {
+    float: left;
+    width: 30px;
+  }
+
+  div.invoice_ticket_time div.description {
+    float: left;
+    width: 410px;
+  }
+
+  div.invoice_ticket_time div.date {
+    float: left;
+    width: 100px;
+  }
+
+  div.invoice_ticket_time div.hours {
+    float: left;
+    width: 60px;
+  }
+
+div#status_block {
+  }
+
+  div#status_block span.on_track {
+    color: #0f0;
+  }
+
+  div#status_block span.behind {
+    color: #f00;
+  }
+
+h1#percent {
+  font-size: 10em;
+  text-align: center;
+}

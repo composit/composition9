@@ -1,0 +1,24 @@
+<h1>Editing pause</h1>
+
+<% form_for(@pause) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+  <p>
+    <%= f.label :interval %><br />
+    <%= f.text_field :interval %>
+  </p>
+  <p>
+    <%= f.label :allowed_length %><br />
+    <%= f.text_field :allowed_length %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @pause %> |
+<%= link_to 'Back', pauses_path %>

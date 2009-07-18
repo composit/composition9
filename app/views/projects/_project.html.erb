@@ -1,0 +1,30 @@
+<div class='project' id='project_<%=h project.id %>'>
+  <% if project_status == 'open' %>
+    <div class='thing_controls dragger'>drag</div>
+  <% end %>
+  <div class='info'>
+    <div class='title'><%=h project.title %></div>
+    <div class='hours'><%=h one_dec(project.hours_worked.to_f) %> / <%=h one_dec(project.estimated_hours.to_f) %></div>
+    <div class='clear'></div>
+    <% if project_status == 'closed' %>
+      <div class='estimated_complete'>Completed date: <%=h project.closed_date.strftime('%m-%d') %></div>
+    <% else %>
+      <div class='estimated_complete'>Estimated complete date: <%=h project.estimated_complete_date.strftime('%m-%d') %></div>
+    <% end %>
+  </div>
+  <% if current_user.is_admin && project_status == 'open' %>
+    <div class='thing_controls'>
+      <div class='control'>
+        <%= render :partial => '/projects/project_to_close', :object => project %>
+      </div>
+      <div class="clear"></div>
+    </div>
+  <% end %>
+  <div class='details' id='project_<%=h project.id %>_tickets'>
+    <% if expanded_project && expanded_project == project %>
+      <%= render :partial => '/projects/expanded_project', :object => project, :locals => { :project_status => project_status } %>
+    <% else %>
+      <%= render :partial => '/projects/collapsed_project', :object => project, :locals => { :project_status => project_status } %>
+    <% end %>
+  </div>
+</div>

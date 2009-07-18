@@ -1,0 +1,26 @@
+<h1>Listing user_pauses</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Pause</th>
+    <th>Start time</th>
+    <th>End time</th>
+  </tr>
+
+<% for user_pause in @user_pauses %>
+  <tr>
+    <td><%=h user_pause.user_id %></td>
+    <td><%=h user_pause.pause_id %></td>
+    <td><%=h user_pause.start_time %></td>
+    <td><%=h user_pause.end_time %></td>
+    <td><%= link_to 'Show', user_pause %></td>
+    <td><%= link_to 'Edit', edit_user_pause_path(user_pause) %></td>
+    <td><%= link_to 'Destroy', user_pause, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New user_pause', new_user_pause_path %>

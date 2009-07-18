@@ -1,0 +1,36 @@
+<h1>Editing alert</h1>
+
+<% form_for(@alert) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :action_statement %><br />
+    <%= f.text_field :action_statement %>
+  </p>
+  <p>
+    <%= f.label :client_id %><br />
+    <%= f.text_field :client_id %>
+  </p>
+  <p>
+    <%= f.label :project_id %><br />
+    <%= f.text_field :project_id %>
+  </p>
+  <p>
+    <%= f.label :ticket_id %><br />
+    <%= f.text_field :ticket_id %>
+  </p>
+  <p>
+    <%= f.label :ticket_comment_id %><br />
+    <%= f.text_field :ticket_comment_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @alert %> |
+<%= link_to 'Back', alerts_path %>

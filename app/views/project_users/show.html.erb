@@ -1,0 +1,23 @@
+<p>
+  <b>Client:</b>
+  <%=h @project_user.client_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @project_user.user_id %>
+</p>
+
+<p>
+  <b>Approved date:</b>
+  <%=h @project_user.approved_date %>
+</p>
+
+<p>
+  <b>Is worker:</b>
+  <%=h @project_user.is_worker %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_user_path(@project_user) %> |
+<%= link_to 'Back', project_users_path %>

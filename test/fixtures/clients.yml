@@ -1,0 +1,53 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: Bulley & Andrews, LLC
+  web_address: www.bulley.com
+  address_line_1: 1755 W. Armitage Ave.
+  address_line_2: 
+  city: Chicago
+  state: IL
+  zip: 60622-1234
+  committed_week_hours: 10
+  billing_rate_dollars: 1500
+  billing_rate_unit: month
+  active: true
+
+two:
+  name: Resource Revival
+  web_address: www.resourcerevival.com
+  address_line_1: 123 Street Ave.
+  address_line_2: Unit 7
+  city: Mosier
+  state: OR
+  zip: 12345
+  committed_week_hours: 4
+  billing_rate_dollars: 49
+  billing_rate_unit: hour
+  active: true
+
+three:
+  name: Mothership Enterprises, LLC
+  web_address: www.google.com
+  address_line_1: 123 Street Ave.
+  address_line_2: Unit 7
+  city: Fort Collins
+  state: CO
+  zip: 80521
+  committed_week_hours: 20
+  billing_rate_dollars: 55
+  billing_rate_unit: hour
+  active: true
+
+four:
+  name: Pants, Inc.
+  web_address: www.pantsinc.com
+  address_line_1: 123 Street Ave.
+  address_line_2: Unit 7
+  city: Fort Collins
+  state: CO
+  zip: 80521
+  committed_week_hours: 20
+  billing_rate_dollars: 55
+  billing_rate_unit: hour
+  active: false

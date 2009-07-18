@@ -1,0 +1,26 @@
+<h1>Listing project_users</h1>
+
+<table>
+  <tr>
+    <th>Client</th>
+    <th>User</th>
+    <th>Approved date</th>
+    <th>Is worker</th>
+  </tr>
+
+<% for project_user in @project_users %>
+  <tr>
+    <td><%=h project_user.client_id %></td>
+    <td><%=h project_user.user_id %></td>
+    <td><%=h project_user.approved_date %></td>
+    <td><%=h project_user.is_worker %></td>
+    <td><%= link_to 'Show', project_user %></td>
+    <td><%= link_to 'Edit', edit_project_user_path(project_user) %></td>
+    <td><%= link_to 'Destroy', project_user, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New project_user', new_project_user_path %>

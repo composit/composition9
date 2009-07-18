@@ -1,0 +1,33 @@
+<p>
+  <b>Client:</b>
+  <%=h @project.client_id %>
+</p>
+
+<p>
+  <b>Created by user:</b>
+  <%=h @project.created_by_user_id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%=h @project.title %>
+</p>
+
+<p>
+  <b>Closed date:</b>
+  <%=h @project.closed_date %>
+</p>
+
+<p>
+  <b>Billing rate dollars:</b>
+  <%=h @project.billing_rate_dollars %>
+</p>
+
+<p>
+  <b>Billing rate unit:</b>
+  <%=h @project.billing_rate_unit %>
+</p>
+
+
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>

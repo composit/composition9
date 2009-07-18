@@ -1,0 +1,36 @@
+<%= error_messages_for :user %>
+<% form_for :user, :url => users_path do |f| -%>
+<p><label for="login">Login (this will display as your identification in the comments)</label><br/>
+<%= f.text_field :login %></p>
+
+<p><label for="email">Email</label><br/>
+<%= f.text_field :email %></p>
+
+<p><label for="password">Password</label><br/>
+<%= f.password_field :password %></p>
+
+<p><label for="password_confirmation">Confirm Password</label><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p><label for="phone">Phone</label><br/>
+<%= f.text_field :phone, :size => "15", :maxlength => "13" %></p>
+
+<p>(Address is optional)</p>
+
+<p><label for="address_line_1">Address Line 1</label><br/>
+<%= f.text_field :address_line_1 %></p>
+
+<p><label for="address_line_2">Address Line 2</label><br/>
+<%= f.text_field :address_line_2 %></p>
+
+<p><label for="city">City</label><br/>
+<%= f.text_field :city %></p>
+
+<p><label for="state">State</label><br/>
+<%= f.select :state, STATE_NAMES, :include_blank => true %></p>
+
+<p><label for="zip">Zip</label><br/>
+<%= f.text_field :zip, :size => "12", :maxlength => "10" %></p>
+
+<p><%= submit_tag 'Sign up' %></p>
+<% end -%>

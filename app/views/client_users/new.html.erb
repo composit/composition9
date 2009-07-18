@@ -1,0 +1,27 @@
+<h1>New client_user</h1>
+
+<% form_for(@client_user) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :client_id %><br />
+    <%= f.text_field :client_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :is_worker %><br />
+    <%= f.check_box :is_worker %>
+  </p>
+  <p>
+    <%= f.label :can_view_invoices %><br />
+    <%= f.check_box :can_view_invoices %>
+  </p>
+  <p>
+    <%= f.submit "Create" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', client_users_path %>

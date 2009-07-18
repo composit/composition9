@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user: one
+  pause: one
+  start_time: <%= 1.hour.ago.to_s :db %>
+  end_time: <%= 56.minutes.ago.to_s :db %>
+
+two:
+  user: one
+  pause: three
+  start_time: <%= 30.minutes.ago.to_s :db %>
+  end_time: <%= 20.minutes.ago.to_s :db %>
+
+three:
+  user: three
+  pause: four
+  start_time: <%= 2.hours.ago.to_s :db %>
+  end_time: 
+
+four:
+  user: one
+  pause: two
+  start_time: <%= 5.hours.ago.to_s :db %>
+  end_time: <%= 4.hours.ago.to_s :db %>

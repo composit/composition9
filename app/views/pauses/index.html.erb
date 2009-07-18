@@ -1,0 +1,24 @@
+<h1>Listing pauses</h1>
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Interval</th>
+    <th>Allowed length</th>
+  </tr>
+
+<% for pause in @pauses %>
+  <tr>
+    <td><%=h pause.title %></td>
+    <td><%=h pause.interval %></td>
+    <td><%=h pause.allowed_length %></td>
+    <td><%= link_to 'Show', pause %></td>
+    <td><%= link_to 'Edit', edit_pause_path(pause) %></td>
+    <td><%= link_to 'Destroy', pause, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New pause', new_pause_path %>

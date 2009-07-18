@@ -1,0 +1,348 @@
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (13.2ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (249.6ms)[0m   [0mCREATE TABLE `schema_migrations` (`version` varchar(255) NOT NULL) ENGINE=InnoDB[0m
+  [4;36;1mSQL (243.0ms)[0m   [0;1mCREATE UNIQUE INDEX `unique_schema_migrations` ON `schema_migrations` (`version`)[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+Migrating to CreateUsers (20080805084331)
+  [4;35;1mSQL (31.4ms)[0m   [0mSHOW TABLES[0m
+  [4;36;1mSQL (50.7ms)[0m   [0;1mCREATE TABLE `users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `login` varchar(255), `email` varchar(255), `crypted_password` varchar(40), `salt` varchar(40), `created_at` datetime, `updated_at` datetime, `remember_token` varchar(255), `remember_token_expires_at` datetime, `activation_code` varchar(40), `activated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (15.4ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20080805084331')[0m
+Migrating to CreateClients (20080807203034)
+  [4;36;1mSQL (44.9ms)[0m   [0;1mCREATE TABLE `clients` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `name` varchar(255), `web_address` varchar(255), `address_line_1` varchar(255), `address_line_2` varchar(255), `city` varchar(255), `state` varchar(255), `zip` varchar(255), `phone` varchar(255), `committed_week_hours` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20080807203034')[0m
+Migrating to AddBillingRatesToClient (20080807204442)
+  [4;36;1mSQL (53.7ms)[0m   [0;1mALTER TABLE `clients` ADD `billing_rate_dollars` int(11)[0m
+  [4;35;1mSQL (38.4ms)[0m   [0mALTER TABLE `clients` ADD `billing_rate_unit` varchar(255)[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080807204442')[0m
+Migrating to CreateClientUsers (20080807204958)
+  [4;35;1mSQL (35.1ms)[0m   [0mCREATE TABLE `client_users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `client_id` int(11), `user_id` int(11), `is_worker` tinyint(1), `can_view_invoices` tinyint(1), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080807204958')[0m
+Migrating to CreateInvoices (20080807205322)
+  [4;35;1mSQL (29.4ms)[0m   [0mCREATE TABLE `invoices` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `client_id` int(11), `invoice_date` date, `paid_date` date, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080807205322')[0m
+Migrating to CreateProjects (20080807210519)
+  [4;35;1mSQL (46.4ms)[0m   [0mCREATE TABLE `projects` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `client_id` int(11), `created_by_user_id` int(11), `title` varchar(255), `closed_date` date, `billing_rate_dollars` int(11), `billing_rate_unit` varchar(255), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.6ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080807210519')[0m
+Migrating to CreateTicketComments (20080807211316)
+  [4;35;1mSQL (42.0ms)[0m   [0mCREATE TABLE `ticket_comments` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `ticket_id` int(11), `user_id` int(11), `comment` text, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080807211316')[0m
+Migrating to CreateTicketTimes (20080807211536)
+  [4;35;1mSQL (50.7ms)[0m   [0mCREATE TABLE `ticket_times` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `ticket_id` int(11), `user_id` int(11), `start_time` datetime, `end_time` datetime, `invoice_id` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080807211536')[0m
+Migrating to CreateTickets (20080807212231)
+  [4;35;1mSQL (49.8ms)[0m   [0mCREATE TABLE `tickets` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `project_id` int(11), `created_by_user_id` int(11), `description` text, `urgency` int(11), `closed_date` datetime, `estimated_hours` float, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.8ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080807212231')[0m
+Migrating to CreatePauses (20080807213120)
+  [4;35;1mSQL (20.5ms)[0m   [0mCREATE TABLE `pauses` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `title` varchar(255), `interval` int(11), `allowed_length` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080807213120')[0m
+Migrating to CreateUserPauses (20080807213208)
+  [4;35;1mSQL (25.6ms)[0m   [0mCREATE TABLE `user_pauses` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `user_id` int(11), `pause_id` int(11), `start_time` datetime, `end_time` datetime, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080807213208')[0m
+Migrating to RemovePhoneFromClient (20080807214016)
+  [4;35;1mSQL (58.6ms)[0m   [0mALTER TABLE `clients` DROP `phone`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080807214016')[0m
+Migrating to AddContactInfoToUsers (20080807214155)
+  [4;35;1mSQL (62.5ms)[0m   [0mALTER TABLE `users` ADD `phone` varchar(255)[0m
+  [4;36;1mSQL (27.0ms)[0m   [0;1mALTER TABLE `users` ADD `address_line_1` varchar(255)[0m
+  [4;35;1mSQL (25.1ms)[0m   [0mALTER TABLE `users` ADD `address_line_2` varchar(255)[0m
+  [4;36;1mSQL (27.1ms)[0m   [0;1mALTER TABLE `users` ADD `city` varchar(255)[0m
+  [4;35;1mSQL (28.0ms)[0m   [0mALTER TABLE `users` ADD `state` varchar(255)[0m
+  [4;36;1mSQL (34.0ms)[0m   [0;1mALTER TABLE `users` ADD `zip` varchar(255)[0m
+  [4;35;1mSQL (16.4ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20080807214155')[0m
+Migrating to AddIsAdminToUsers (20080808032201)
+  [4;36;1mSQL (38.9ms)[0m   [0;1mALTER TABLE `users` ADD `is_admin` tinyint(1)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20080808032201')[0m
+Migrating to AddIsAdminToClientUsers (20080808224323)
+  [4;36;1mSQL (20.6ms)[0m   [0;1mALTER TABLE `client_users` ADD `is_admin` tinyint(1)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20080808224323')[0m
+Migrating to AddPriorityToProjectsAndTickets (20080809202418)
+  [4;36;1mSQL (28.4ms)[0m   [0;1mALTER TABLE `projects` ADD `priority` int(11)[0m
+  [4;35;1mSQL (33.1ms)[0m   [0mALTER TABLE `tickets` ADD `priority` int(11)[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080809202418')[0m
+Migrating to AddUserIdToPauses (20080810011327)
+  [4;35;1mSQL (26.0ms)[0m   [0mALTER TABLE `pauses` ADD `user_id` int(11)[0m
+  [4;36;1mSQL (0.4ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080810011327')[0m
+Migrating to CreateProjectUsers (20080810114841)
+  [4;35;1mSQL (45.8ms)[0m   [0mCREATE TABLE `project_users` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `client_id` int(11), `user_id` int(11), `approved_date` datetime, `is_worker` tinyint(1), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080810114841')[0m
+Migrating to AddPriorityToClientUsers (20080810132725)
+  [4;35;1mSQL (32.3ms)[0m   [0mALTER TABLE `client_users` ADD `priority` int(11)[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20080810132725')[0m
+Migrating to MoveUrgencyFromTicketsToProjects (20080810163204)
+  [4;35;1mSQL (27.9ms)[0m   [0mALTER TABLE `tickets` DROP `urgency`[0m
+  [4;36;1mSQL (8.6ms)[0m   [0;1mALTER TABLE `projects` ADD `urgency` int(11)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20080810163204')[0m
+Migrating to AddWorkerToTickets (20080812215420)
+  [4;36;1mSQL (29.3ms)[0m   [0;1mALTER TABLE `tickets` ADD `worker_id` int(11)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20080812215420')[0m
+Migrating to AddActiveToClients (20080910033651)
+  [4;36;1mSQL (35.7ms)[0m   [0;1mALTER TABLE `clients` ADD `active` tinyint(1)[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20080910033651')[0m
+Migrating to CreateAlerts (20080913225924)
+  [4;36;1mSQL (31.8ms)[0m   [0;1mCREATE TABLE `alerts` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `action_statement` varchar(255), `client_id` int(11), `project_id` int(11), `ticket_id` int(11), `ticket_comment_id` int(11), `user_id` int(11), `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20080913225924')[0m
+Migrating to CreateUserAlerts (20080913234026)
+  [4;36;1mSQL (24.2ms)[0m   [0;1mCREATE TABLE `user_alerts` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `alert_id` int(11), `user_id` int(11), `hidden_time` datetime, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20080913234026')[0m
+Migrating to CreateInvoiceAdjustmentLines (20081010023648)
+  [4;36;1mSQL (36.0ms)[0m   [0;1mCREATE TABLE `invoice_adjustment_lines` (`id` int(11) DEFAULT NULL auto_increment PRIMARY KEY, `invoice_id` int(11), `description` varchar(255), `amount` float, `created_at` datetime, `updated_at` datetime) ENGINE=InnoDB[0m
+  [4;35;1mSQL (0.5ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20081010023648')[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSELECT version FROM schema_migrations[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSHOW TABLES[0m
+  [4;35;1mSQL (21.5ms)[0m   [0mSHOW FIELDS FROM `alerts`[0m
+  [4;36;1mSQL (1.1ms)[0m   [0;1mdescribe `alerts`[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSHOW KEYS FROM `alerts`[0m
+  [4;36;1mSQL (10.1ms)[0m   [0;1mSHOW FIELDS FROM `client_users`[0m
+  [4;35;1mSQL (1.1ms)[0m   [0mdescribe `client_users`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSHOW KEYS FROM `client_users`[0m
+  [4;35;1mSQL (5.8ms)[0m   [0mSHOW FIELDS FROM `clients`[0m
+  [4;36;1mSQL (1.3ms)[0m   [0;1mdescribe `clients`[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSHOW KEYS FROM `clients`[0m
+  [4;36;1mSQL (1.1ms)[0m   [0;1mSHOW FIELDS FROM `invoice_adjustment_lines`[0m
+  [4;35;1mSQL (0.9ms)[0m   [0mdescribe `invoice_adjustment_lines`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSHOW KEYS FROM `invoice_adjustment_lines`[0m
+  [4;35;1mSQL (1.4ms)[0m   [0mSHOW FIELDS FROM `invoices`[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1mdescribe `invoices`[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSHOW KEYS FROM `invoices`[0m
+  [4;36;1mSQL (41.2ms)[0m   [0;1mSHOW FIELDS FROM `pauses`[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mdescribe `pauses`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSHOW KEYS FROM `pauses`[0m
+  [4;35;1mSQL (13.6ms)[0m   [0mSHOW FIELDS FROM `project_users`[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mdescribe `project_users`[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSHOW KEYS FROM `project_users`[0m
+  [4;36;1mSQL (9.8ms)[0m   [0;1mSHOW FIELDS FROM `projects`[0m
+  [4;35;1mSQL (1.2ms)[0m   [0mdescribe `projects`[0m
+  [4;36;1mSQL (0.5ms)[0m   [0;1mSHOW KEYS FROM `projects`[0m
+  [4;35;1mSQL (23.8ms)[0m   [0mSHOW FIELDS FROM `ticket_comments`[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1mdescribe `ticket_comments`[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSHOW KEYS FROM `ticket_comments`[0m
+  [4;36;1mSQL (7.5ms)[0m   [0;1mSHOW FIELDS FROM `ticket_times`[0m
+  [4;35;1mSQL (1.0ms)[0m   [0mdescribe `ticket_times`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSHOW KEYS FROM `ticket_times`[0m
+  [4;35;1mSQL (13.5ms)[0m   [0mSHOW FIELDS FROM `tickets`[0m
+  [4;36;1mSQL (1.0ms)[0m   [0;1mdescribe `tickets`[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSHOW KEYS FROM `tickets`[0m
+  [4;36;1mSQL (8.6ms)[0m   [0;1mSHOW FIELDS FROM `user_alerts`[0m
+  [4;35;1mSQL (0.9ms)[0m   [0mdescribe `user_alerts`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSHOW KEYS FROM `user_alerts`[0m
+  [4;35;1mSQL (1.1ms)[0m   [0mSHOW FIELDS FROM `user_pauses`[0m
+  [4;36;1mSQL (0.9ms)[0m   [0;1mdescribe `user_pauses`[0m
+  [4;35;1mSQL (0.3ms)[0m   [0mSHOW KEYS FROM `user_pauses`[0m
+  [4;36;1mSQL (29.1ms)[0m   [0;1mSHOW FIELDS FROM `users`[0m
+  [4;35;1mSQL (1.6ms)[0m   [0mdescribe `users`[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mSHOW KEYS FROM `users`[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ClientsController#index (for 127.0.0.1 at 2009-07-17 18:19:50) [GET]
+
+NoMethodError (undefined method `login_required' for #<ClientsController:0xb6e60e7c>):
+  
+
+Rendered rescues/_trace (110.4ms)
+Rendered rescues/_request_and_response (15.4ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ClientsController#index (for 127.0.0.1 at 2009-07-17 18:24:48) [GET]
+
+NoMethodError (undefined method `login_required' for #<ClientsController:0xb7035c0c>):
+  
+
+Rendered rescues/_trace (102.0ms)
+Rendered rescues/_request_and_response (0.6ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ClientsController#index (for 127.0.0.1 at 2009-07-17 18:26:42) [GET]
+
+NoMethodError (undefined method `login_required' for #<ClientsController:0xb707a938>):
+  
+
+Rendered rescues/_trace (179.6ms)
+Rendered rescues/_request_and_response (3.2ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (37.7ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ClientsController#index (for 127.0.0.1 at 2009-07-17 18:30:40) [GET]
+
+NoMethodError (undefined method `login_required' for #<ClientsController:0xb6f77b1c>):
+  
+
+Rendered rescues/_trace (179.7ms)
+Rendered rescues/_request_and_response (2.8ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ClientsController#index (for 127.0.0.1 at 2009-07-17 18:32:52) [GET]
+  Parameters: {"action"=>"index", "controller"=>"clients"}
+
+NameError (undefined local variable or method `new_session_path' for #<ClientsController:0xb6f2d288>):
+  lib/authenticated_system.rb:68:in `access_denied'
+  lib/authenticated_system.rb:65:in `access_denied'
+  lib/authenticated_system.rb:53:in `login_required'
+
+Rendered rescues/_trace (187.0ms)
+Rendered rescues/_request_and_response (2.8ms)
+Rendering rescues/layout (internal_server_error)
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ClientsController#index (for 127.0.0.1 at 2009-07-17 18:34:08) [GET]
+  Parameters: {"action"=>"index", "controller"=>"clients"}
+Redirected to http://localhost:3000/session/new
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 3ms (DB: 0) | 302 Found [http://localhost/clients]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-07-17 18:34:08) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/admin
+Rendering sessions/new
+Completed in 290ms (View: 80, DB: 0) | 200 OK [http://localhost/session/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-07-17 18:34:12) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/admin
+Rendering sessions/new
+Completed in 13ms (View: 6, DB: 0) | 200 OK [http://localhost/session/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-07-17 18:34:19) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/admin
+Rendering sessions/new
+Completed in 13ms (View: 6, DB: 0) | 200 OK [http://localhost/session/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-07-17 18:39:10) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/admin
+Rendering sessions/new
+Completed in 178ms (View: 23, DB: 0) | 200 OK [http://localhost/session/new]
+  [4;36;1mSQL (0.2ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ClientsController#index (for 127.0.0.1 at 2009-07-17 18:46:23) [GET]
+  Parameters: {"action"=>"index", "controller"=>"clients"}
+Redirected to http://localhost:3000/session/new
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 3ms (DB: 0) | 302 Found [http://localhost/clients]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-07-17 18:46:23) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/admin
+Rendering sessions/new
+Completed in 222ms (View: 66, DB: 0) | 200 OK [http://localhost/session/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ClientsController#index (for 127.0.0.1 at 2009-07-17 18:47:06) [GET]
+  Parameters: {"action"=>"index", "controller"=>"clients"}
+Redirected to http://localhost:3000/session/new
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 3ms (DB: 0) | 302 Found [http://localhost/clients]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-07-17 18:47:06) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/admin
+Rendering sessions/new
+Completed in 13ms (View: 5, DB: 0) | 200 OK [http://localhost/session/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-07-17 18:49:47) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/admin
+Rendering sessions/new
+Completed in 191ms (View: 37, DB: 0) | 200 OK [http://localhost/session/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-07-17 18:50:12) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/admin
+Rendering sessions/new
+Completed in 14ms (View: 6, DB: 0) | 200 OK [http://localhost/session/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-07-17 18:50:12) [GET]
+
+ActionController::RoutingError (No route matches "/stylesheets/stylish.css" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-07-17 18:52:45) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/admin
+Rendering sessions/new
+Completed in 15ms (View: 7, DB: 0) | 200 OK [http://localhost/session/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing ApplicationController#index (for 127.0.0.1 at 2009-07-17 18:52:45) [GET]
+
+ActionController::RoutingError (No route matches "/images/bg.gif" with {:method=>:get}):
+  
+
+Rendering rescues/layout (not_found)
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2009-07-17 18:53:07) [GET]
+  Parameters: {"action"=>"new", "controller"=>"sessions"}
+Rendering template within layouts/admin
+Rendering sessions/new
+Completed in 13ms (View: 6, DB: 0) | 200 OK [http://localhost/session/new]
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSET NAMES 'utf8'[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSET SQL_AUTO_IS_NULL=0[0m
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2009-07-17 18:53:15) [POST]
+  Parameters: {"commit"=>"Log in", "action"=>"create", "authenticity_token"=>"V+yAOP/odn+VbMGaPpWx6V43RP7wqvWqa/758lngpno=", "controller"=>"sessions", "login"=>"matt", "password"=>"[FILTERED]"}
+  [4;36;1mUser Load (271.7ms)[0m   [0;1mSELECT * FROM `users` WHERE (login = 'matt' and activated_at IS NOT NULL) LIMIT 1[0m
+Rendering template within layouts/admin
+Rendering sessions/new
+Completed in 374ms (View: 5, DB: 272) | 200 OK [http://localhost/session]

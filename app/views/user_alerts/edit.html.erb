@@ -1,0 +1,24 @@
+<h1>Editing user_alert</h1>
+
+<% form_for(@user_alert) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :alert_id %><br />
+    <%= f.text_field :alert_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :hidden_time %><br />
+    <%= f.datetime_select :hidden_time %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @user_alert %> |
+<%= link_to 'Back', user_alerts_path %>

@@ -1,0 +1,94 @@
+one:
+  login: matt
+  email: matt@composition9.com
+  salt: 74f1bb9bdc17c8a10ce1010f138f5fffef0d2905
+  crypted_password: 0ac257aeb18cc659379f3d2ec742196e9786efcb # abc123
+  created_at: <%= 5.days.ago.to_s :db %>
+  activation_code: null
+  activated_at: <%= 5.days.ago.to_s :db %>
+  phone: 1234567890
+  address_line_1: 123 Street Ave.
+  address_line_2: Unit 1B
+  city: Cityville
+  state: IL
+  zip: 12345
+  is_admin: true
+
+two:
+  login: todd
+  email: todd@composition9.com
+  salt: 74f1bb9bdc17c8a10ce1010f138f5fffef0d2905
+  crypted_password: 0ac257aeb18cc659379f3d2ec742196e9786efcb # abc123
+  created_at: <%= 5.days.ago.to_s :db %>
+  activation_code: null
+  activated_at: <%= 5.days.ago.to_s :db %>
+  phone: 1234567890
+  address_line_1: 123 Street Ave.
+  address_line_2: Unit 1B
+  city: Cityville
+  state: IL
+  zip: 12345
+  is_admin: false
+
+three:
+  login: susan
+  email: susan@composition9.com
+  salt: 74f1bb9bdc17c8a10ce1010f138f5fffef0d2905
+  crypted_password: 0ac257aeb18cc659379f3d2ec742196e9786efcb # abc123
+  created_at: <%= 5.days.ago.to_s :db %>
+  activation_code: null
+  activated_at: <%= 5.days.ago.to_s :db %>
+  phone: 1234567890
+  address_line_1: 123 Street Ave.
+  address_line_2: Unit 1B
+  city: Cityville
+  state: IL
+  zip: 12345
+  is_admin: false
+
+quentin:
+  login: quentin
+  email: quentin@composition9.com
+  salt: 7e3041ebc2fc05a40c60028e2c4901a81035d3cd
+  crypted_password: 00742970dc9e6319f8019fd54864d3ea740f04b1 # test
+  created_at: <%= 5.days.ago.to_s :db %>
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9b 
+  activated_at: <%= 5.days.ago.to_s :db %> 
+  phone: 1234567890
+  address_line_1: 123 Street Ave.
+  address_line_2: Unit 1B
+  city: Cityville
+  state: IL
+  zip: 12345
+  is_admin: false
+
+aaron:
+  login: aaron
+  email: system9@composition9.com
+  salt: 1aa8dd5a6ee4739030a1b3a4101d2f0655a33ab3
+  crypted_password: dc1e98830cf5232ece51b3b2520f9087b27ab557 # test
+  created_at: <%= 1.days.ago.to_s :db %>
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9a 
+  phone: 1234567890
+  address_line_1: 123 Street Ave.
+  address_line_2: Unit 1B
+  city: Cityville
+  state: IL
+  zip: 12345
+  is_admin: false
+
+four:
+  login: person
+  email: person@composition9.com
+  salt: 1aa8dd5a6ee4739030a1b3a4101d2f0655a33ab3
+  crypted_password: dc1e98830cf5232ece51b3b2520f9087b27ab557 # test
+  created_at: <%= 1.days.ago.to_s :db %>
+  activation_code: 8f24789ae988411ccf33ab0c30fe9106fab32e9a 
+  activated_at: <%= 5.days.ago.to_s :db %> 
+  phone: 1234567890
+  address_line_1: 123 Street Ave.
+  address_line_2: Unit 1B
+  city: Cityville
+  state: IL
+  zip: 12345
+  is_admin: false

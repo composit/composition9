@@ -1,0 +1,24 @@
+<h1>Editing ticket_comment</h1>
+
+<% form_for(@ticket_comment) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :ticket_id %><br />
+    <%= f.text_field :ticket_id %>
+  </p>
+  <p>
+    <%= f.label :user_id %><br />
+    <%= f.text_field :user_id %>
+  </p>
+  <p>
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @ticket_comment %> |
+<%= link_to 'Back', ticket_comments_path %>

@@ -1,0 +1,25 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  title: break
+  interval: 60
+  allowed_length: 5
+  user: one
+
+two:
+  title: email
+  interval: 60
+  allowed_length: 5
+  user: one
+
+three:
+  title: unscheduled
+  interval: 0
+  allowed_length: 0
+  user: one
+
+four:
+  title: shouting
+  interval: 30
+  allowed_length: 10
+  user: three

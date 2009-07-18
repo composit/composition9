@@ -1,0 +1,18 @@
+<p>
+  <b>Title:</b>
+  <%=h @pause.title %>
+</p>
+
+<p>
+  <b>Interval:</b>
+  <%=h @pause.interval %>
+</p>
+
+<p>
+  <b>Allowed length:</b>
+  <%=h @pause.allowed_length %>
+</p>
+
+
+<%= link_to 'Edit', edit_pause_path(@pause) %> |
+<%= link_to 'Back', pauses_path %>

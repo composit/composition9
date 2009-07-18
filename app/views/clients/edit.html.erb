@@ -1,0 +1,44 @@
+<h1>Editing client</h1>
+
+<% form_for(@client) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  <p>
+    <%= f.label :web_address %><br />
+    <%= f.text_field :web_address %>
+  </p>
+  <p>
+    <%= f.label :address_line_1 %><br />
+    <%= f.text_field :address_line_1 %>
+  </p>
+  <p>
+    <%= f.label :address_line_2 %><br />
+    <%= f.text_field :address_line_2 %>
+  </p>
+  <p>
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </p>
+  <p>
+    <%= f.label :state %><br />
+    <%= f.text_field :state %>
+  </p>
+  <p>
+    <%= f.label :zip %><br />
+    <%= f.text_field :zip %>
+  </p>
+  <p>
+    <%= f.label :committed_week_hours %><br />
+    <%= f.text_field :committed_week_hours %>
+  </p>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @client %> |
+<%= link_to 'Back', clients_path %>

@@ -1,0 +1,24 @@
+<h1>Listing invoice_adjustment_lines</h1>
+
+<table>
+  <tr>
+    <th>Invoice</th>
+    <th>Description</th>
+    <th>Amount</th>
+  </tr>
+
+<% for invoice_adjustment_line in @invoice_adjustment_lines %>
+  <tr>
+    <td><%=h invoice_adjustment_line.invoice_id %></td>
+    <td><%=h invoice_adjustment_line.description %></td>
+    <td><%=h invoice_adjustment_line.amount %></td>
+    <td><%= link_to 'Show', invoice_adjustment_line %></td>
+    <td><%= link_to 'Edit', edit_invoice_adjustment_line_path(invoice_adjustment_line) %></td>
+    <td><%= link_to 'Destroy', invoice_adjustment_line, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New invoice_adjustment_line', new_invoice_adjustment_line_path %>

@@ -1,0 +1,62 @@
+<div id="current_block">
+  <% if worker.open_ticket_time %>
+    <div class="name">
+      <%= worker.open_ticket_time.ticket.full_description %>
+      <% if worker.open_ticket_time.ticket.project.open_tickets.length > 1 %>
+        <%= render :partial => "/tickets/ticket_to_close", :object => worker.open_ticket_time.ticket unless worker.open_ticket_time.ticket.closed_date %>
+      <% elsif !worker.open_ticket_time.ticket.closed_date %>
+        <%= render :partial => "/projects/project_to_close", :object => worker.open_ticket_time.ticket.project %>
+      <% end %>
+    </div>
+    <div class="times">
+      <% remote_form_for(worker.open_ticket_time, :update => "user_block", :html => { :id => "worker_form" }) do |f| %>
+        <%= text_field_tag "ticket_time[start_time]", worker.open_ticket_time.start_time, :size => "15", :onfocus => "worker_refresher = false", :onblur => "worker_refresher = true" %> -
+        <%= text_field_tag "ticket_time[end_time]", Time.zone.now.strftime("%Y-%m-%d %H:%M:%S"), :size => "15" %>
+        <% if worker.open_user_pause %>
+          <span class="<%=h worker.open_user_pause.urgency_class %>">
+            <%= link_to_function "end " + worker.open_user_pause.pause.title, "document.forms['end_pause_form'].onsubmit()" %>
+          </span>
+        <% else %>
+          <%= link_to_function "stop", "document.forms['worker_form'].onsubmit()" %>
+          <% for pause in worker.pauses %>
+            <%= link_to_function "&middot; " + pause.title, "document.forms['pause_" + pause.id.to_s + "'].onsubmit()" if pause.is_ready? %>
+          <% end %>
+        <% end %>
+      <% end %>
+      <% for pause in worker.pauses %>
+        <% remote_form_for(pause.new_user_pause, :update => "user_block", :html => { :id => "pause_" + pause.id.to_s }) do |f| %>
+          <%= f.hidden_field :user_id %>
+          <%= f.hidden_field :pause_id %>
+        <% end %>
+      <% end %>
+      <% if worker.open_user_pause %>
+        <% remote_form_for(worker.open_user_pause, :update => "user_block", :html => { :id => "end_pause_form" }) do |f| %>
+        <% end %>
+      <% end %>
+    </div>
+  <% elsif worker.next_ticket %>
+    <div class="name">
+      <%=h worker.next_ticket.full_description %>
+    </div>
+    <div class="times">
+      <%= render :partial => "/ticket_times/new_ticket_time", :object => worker.new_ticket_time(worker.next_ticket.id) %>
+    </div>
+  <% else %>
+    <div class="name">No current tickets</div>
+  <% end %>
+</div>
+<div id="status_block">
+  hours remaining:
+  <span class="<%=h current_user.hours_on_track ? "on_track" : "behind" %>">
+    <%=h one_dec(worker.hours_left_this_week) %>
+  </span> |
+  <span class="<%=h current_user.dollars_on_track ? "on_track" : "behind" %>">
+    <%=h number_to_currency( worker.dollars_earned(Time.zone.now) ) %>
+  </span> :
+  <span class="<%=h ( current_user.hours_on_track && current_user.dollars_on_track ) ? "on_track" : "behind" %>">
+    <%=h worker.total_percent_this_week %>%
+  </span>
+</div>
+<div id="alerts_block">
+  <%= render :partial => '/users/active_alert', :collection => current_user.active_alerts if current_user.active_alerts.length > 0 %>
+</div>

@@ -1,0 +1,43 @@
+<p>
+  <b>Name:</b>
+  <%=h @client.name %>
+</p>
+
+<p>
+  <b>Web address:</b>
+  <%=h @client.web_address %>
+</p>
+
+<p>
+  <b>Address line 1:</b>
+  <%=h @client.address_line_1 %>
+</p>
+
+<p>
+  <b>Address line 2:</b>
+  <%=h @client.address_line_2 %>
+</p>
+
+<p>
+  <b>City:</b>
+  <%=h @client.city %>
+</p>
+
+<p>
+  <b>State:</b>
+  <%=h @client.state %>
+</p>
+
+<p>
+  <b>Zip:</b>
+  <%=h @client.zip %>
+</p>
+
+<p>
+  <b>Committed week hours:</b>
+  <%=h @client.committed_week_hours %>
+</p>
+
+
+<%= link_to 'Edit', edit_client_path(@client) %> |
+<%= link_to 'Back', clients_path %>

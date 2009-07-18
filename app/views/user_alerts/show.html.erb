@@ -1,0 +1,18 @@
+<p>
+  <b>Alert:</b>
+  <%=h @user_alert.alert_id %>
+</p>
+
+<p>
+  <b>User:</b>
+  <%=h @user_alert.user_id %>
+</p>
+
+<p>
+  <b>Hidden time:</b>
+  <%=h @user_alert.hidden_time %>
+</p>
+
+
+<%= link_to 'Edit', edit_user_alert_path(@user_alert) %> |
+<%= link_to 'Back', user_alerts_path %>

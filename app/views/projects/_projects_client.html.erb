@@ -1,0 +1,44 @@
+<div id='flash-notice'><%= flash[:notice] %></div>
+<% (1..3).each do |urgency| %>
+  <div class="urgency_header urgency_<%=h urgency %>">urgency <%=h urgency %> projects</div>
+  <% if projects_client.open_projects(urgency).length > 0 %>
+    <div class='projects' id='projects_urgency_<%=h urgency %>'>
+      <%= render :partial => "/projects/project", :collection => projects_client.open_projects(urgency), :locals => { :expanded_project => expanded_project, :urgency => urgency, :project_status => project_status } %>
+    </div>
+    <%= sortable_element('projects_urgency_' + urgency.to_s, :url => {:controller => 'projects', :action => 'update'}, :constraint => :vertical, :tag => 'div', :handle => 'dragger', :update => 'projects_client') if project_status == 'open' %>
+  <% end %>
+  <div class="thing_controls"><%= link_to_function "new urgency " + urgency.to_s + " project", "document.getElementById('new_project_form_" + urgency.to_s + "').style.display = 'block'" %></div>
+  <div class="project" id="new_project_form_<%=h urgency %>" style="display:none">
+    <p>
+      <% if urgency == 1 %>
+        Urgency 1 projects are reserved for items that need to be completed immediately.  If it is not critical for this project to be completed within 24 hours, please enter it as a Urgency 2 project and drag it into an appropriate priority order.
+      <% elsif urgency == 2 %>
+        Urgency 2 projects are where most projects will exist.  Once your project is created, feel free to drag it into an appropriate position to indicate its priority.
+      <% elsif urgency == 3 %>
+        Urgency 3 projects are for "pending" projects.  These projects will only be addressed once all Urgency 1 and 2 projects have been completed.
+      <% end %>
+    </p>
+    <% remote_form_for(projects_client.new_project(current_user.id, urgency), :update => "projects_client") do |f| %>
+      <%= f.hidden_field :client_id %>
+      <%= f.hidden_field :created_by_user_id %>
+      <p>
+        Brief title (add details in the comments)<br />
+        <%= f.text_field :title %>
+      </p>
+      <% if current_user.is_admin %>
+        <p>
+          Billing Rate<br />
+          $<%= f.text_field :billing_rate_dollars, :size => "5" %>
+          per
+          <%= f.select :billing_rate_unit, Project::BILLING_RATE_UNITS %>
+        </p>
+      <% else %>
+        <%= f.hidden_field :billing_rate_dollars %>
+        <%= f.hidden_field :billing_rate_unit %>
+      <% end %>
+      <%= f.hidden_field :priority %>
+      <%= f.hidden_field :urgency %>
+      <%= f.submit "create project" %>
+    <% end %>
+  </div>
+<% end %>

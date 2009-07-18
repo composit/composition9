@@ -1,0 +1,24 @@
+<h1>Listing ticket_comments</h1>
+
+<table>
+  <tr>
+    <th>Ticket</th>
+    <th>User</th>
+    <th>Comment</th>
+  </tr>
+
+<% for ticket_comment in @ticket_comments %>
+  <tr>
+    <td><%=h ticket_comment.ticket_id %></td>
+    <td><%=h ticket_comment.user_id %></td>
+    <td><%=h ticket_comment.comment %></td>
+    <td><%= link_to 'Show', ticket_comment %></td>
+    <td><%= link_to 'Edit', edit_ticket_comment_path(ticket_comment) %></td>
+    <td><%= link_to 'Destroy', ticket_comment, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New ticket_comment', new_ticket_comment_path %>

@@ -1,0 +1,65 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  client: one
+  user: one
+  is_worker: true
+  can_view_invoices: true
+  is_admin: true
+  priority: 2
+
+two:
+  client: one
+  user: quentin
+  is_worker: false
+  can_view_invoices: true
+  is_admin: true
+  priority: 1
+
+three:
+  client: one
+  user: two
+  is_worker: false
+  can_view_invoices: false
+  is_admin: false
+  priority: 1
+
+four:
+  client: one
+  user: three
+  is_worker: true
+  can_view_invoices: true
+  is_admin: true
+  priority: 1
+
+five:
+  client: two
+  user: one
+  is_worker: true
+  can_view_invoices: true
+  is_admin: true
+  priority: 1
+
+six:
+  client: three
+  user: one
+  is_worker: true
+  can_view_invoices: true
+  is_admin: true
+  priority: 3
+
+seven:
+  client: three
+  user: three
+  is_worker: true
+  can_view_invoices: true
+  is_admin: true
+  priority: 3
+
+eight:
+  client: four
+  user: one
+  is_worker: true
+  can_view_invoices: true
+  is_admin: true
+  priority: 4

@@ -1,0 +1,21 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  client: one
+  invoice_date: <%= 10.days.ago.to_s :db %>
+  paid_date: <%= 5.days.ago.to_s :db %>
+
+two:
+  client: one
+  invoice_date: <%= 5.days.ago.to_s :db %>
+  paid_date: 
+
+three:
+  client: two
+  invoice_date: <%= 5.days.ago.to_s :db %>
+  paid_date:
+
+four:
+  client: two
+  invoice_date: <%= 2.months.ago.to_s :db %>
+  paid_date:
