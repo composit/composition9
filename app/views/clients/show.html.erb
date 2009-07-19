@@ -1,13 +1,15 @@
-<h1><%=h @client.name %></h1>
+<h1><%=h( @client.name ) %></h1>
+
+<%= link_to 'Show Projects', projects_path( :client_id => @client.id ) %>
 
 <p>
   <b>Committed week hours:</b>
-  <%=h @client.committed_week_hours %>
+  <%=h( @client.committed_week_hours ) %>
 </p>
 
 <p>
   <b>Next invoice date</b>
-  <%=h ( Date.today.beginning_of_month + 1.month ).strftime('%m.%d.%Y') %>
+  <%=h( ( Date.today.beginning_of_month + 1.month ).strftime('%m.%d.%Y') ) %>
 </p>
 
 <p>
@@ -16,17 +18,38 @@
     <%= ( Date.today.beginning_of_week + office_hour.day_of_week - 1.day ).strftime('%a') %> :
     <%=h( office_hour.start_time_string ) %> - <%=h( office_hour.end_time_string ) %><br />
   <% end %>
+  <%=h( "Office hours unavailable for this client" ) if( @client.office_hours.length == 0 ) %>
+</p>
+<h2>You are viewing/chatting anonymously.  Feel free to announce yourself.</h2>
+<p>
+  <div class='work-talk'>
+    <!-- Beginning of meebo me widget code. Want to talk with visitors on your page? Go to http://www.meebome.com/ and get your widget! -->
+    <object width="190" height="275" >
+      <param name="movie" value="http://widget.meebo.com/mm.swf?pJQixZyxLb"/>
+      <embed src="http://widget.meebo.com/mm.swf?pJQixZyxLb" type="application/x-shockwave-flash" width="190" height="275"></embed>
+    </object>
+  </div>
+  <div class='work-talk'>
+    <embed width="320" height="261" src="http://ustream.tv/S5Mb2A9hESGOfdkX3KA3Ng.usc" type="application/x-shockwave-flash" wmode="transparent"/>
+<!--
+    <object id="utv_o_633638" height="160" width="200"  classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
+      <param value="http://www.ustream.tv/flash/live/1031" name="movie" />
+      <param value="true" name="allowFullScreen" />
+      <param value="always" name="allowScriptAccess" />
+      <param value="transparent" name="wmode" />
+      <param value="viewcount=true&amp;autoplay=false&amp;brand=embed&amp;" name="flashvars" />
+      <embed name="utv_e_86210" id="utv_e_460186" flashvars="viewcount=true&amp;autoplay=false&amp;brand=embed&amp;" height="160" width="200" allowfullscreen="true" allowscriptaccess="always" wmode="transparent" src="http://www.ustream.tv/flash/live/1031" type="application/x-shockwave-flash" />
+    </object>
+  -->
+  </div>
+  <div class='clear'>&nbsp;</div>
 </p>
 <p>
-  <object id="utv_o_633638" height="320" width="400"  classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000">
-    <param value="http://www.ustream.tv/flash/live/1031" name="movie" />
-    <param value="true" name="allowFullScreen" />
-    <param value="always" name="allowScriptAccess" />
-    <param value="transparent" name="wmode" />
-    <param value="viewcount=true&amp;autoplay=false&amp;brand=embed&amp;" name="flashvars" />
-    <embed name="utv_e_86210" id="utv_e_460186" flashvars="viewcount=true&amp;autoplay=false&amp;brand=embed&amp;" height="320" width="400" allowfullscreen="true" allowscriptaccess="always" wmode="transparent" src="http://www.ustream.tv/flash/live/1031" type="application/x-shockwave-flash" />
-  </object>
+  If I am not available above or it is having problems determining my status, I am available via the following:
+  <ol>
+    <li>AIM: comp9matt</li>
+    <li>GTalk: comp9matt</li>
+    <li>Phone: (970)310-4329</li>
+    <li>Email: <%= link_to "matt@composition9.com", "mailto:matt@composition9.com" %></li>
+  </ol>
 </p>
-
-
-<%= link_to 'Show Projects', projects_path( :client_id => @client.id ) %>
