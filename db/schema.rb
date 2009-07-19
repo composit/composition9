@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081010023648) do
+ActiveRecord::Schema.define(:version => 20090719091750) do
 
   create_table "alerts", :force => true do |t|
     t.string   "action_statement"
@@ -61,6 +61,18 @@ ActiveRecord::Schema.define(:version => 20081010023648) do
     t.integer  "client_id"
     t.date     "invoice_date"
     t.date     "paid_date"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "office_hours", :force => true do |t|
+    t.integer  "client_id"
+    t.integer  "user_id"
+    t.integer  "start_hour"
+    t.integer  "start_minute"
+    t.integer  "end_hour"
+    t.integer  "end_minute"
+    t.integer  "day_of_week"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

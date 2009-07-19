@@ -25,7 +25,8 @@ class SessionsController < ApplicationController
         redirect_to clients_path
       else
         client_id = current_user.clients.find(:first).id.to_s
-        redirect_to projects_path( :client_id => client_id )
+        # redirect_to projects_path( :client_id => client_id )
+        redirect_to client_path( client_id )
       end
     else
       render :action => 'new'

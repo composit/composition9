@@ -4,6 +4,7 @@ class Client < ActiveRecord::Base
   has_many :invoices
   has_many :projects
   has_many :alerts
+  has_many :office_hours
 
   validates_presence_of :name, :address_line_1, :city, :state, :zip
   validates_format_of :zip, :with => /\A\d{5}[-\d{4}]*\Z/

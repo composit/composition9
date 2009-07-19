@@ -15,6 +15,7 @@ class User < ActiveRecord::Base
   has_many :user_pauses
   has_many :alerts
   has_many :user_alerts
+  has_many :office_hours
 
   validates_presence_of     :login, :email, :phone
   validates_numericality_of :phone
