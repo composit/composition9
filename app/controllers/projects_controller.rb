@@ -133,7 +133,7 @@ class ProjectsController < ApplicationController
         :action_statement => "updated the priority of projects",
         :client_id => client_id
       ) if client_id
-      render :partial => "/projects/projects_client", :object => Client.find(client_id), :locals => { :project_status => @project_status }
+      render :partial => "/projects/projects_client", :object => Client.find(client_id), :locals => { :expanded_project => false, :project_status => @project_status }
     end
   end
 
