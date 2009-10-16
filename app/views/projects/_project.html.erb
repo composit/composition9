@@ -8,7 +8,7 @@
     <div class='clear'></div>
     <% if project_status == 'closed' %>
       <div class='estimated_complete'>Completed date: <%=h project.closed_date.strftime('%m-%d') %></div>
-    <% else %>
+    <% elsif( false ) #TODO make the estimated complete date appear when user clicks "estimate" or something %>
       <div class='estimated_complete'>Estimated complete date: <%=h project.estimated_complete_date.strftime('%m-%d') %></div>
     <% end %>
   </div>

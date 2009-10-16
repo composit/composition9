@@ -155,7 +155,10 @@ class ProjectsController < ApplicationController
 
   protected
     def get_project_status
-      @project_status = 'open'
-      @project_status = 'closed' if params[:project_status] && params[:project_status] == 'closed'
+      if( params[:project_status] && params[:project_status] == 'closed' )
+        @project_status = 'closed'
+      else
+        @project_status = 'open'
+      end
     end
 end

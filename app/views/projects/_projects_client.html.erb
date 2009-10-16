@@ -5,7 +5,7 @@
     <div class='projects' id='projects_urgency_<%=h urgency %>'>
       <%= render :partial => "/projects/project", :collection => projects_client.open_projects(urgency), :locals => { :expanded_project => expanded_project, :urgency => urgency, :project_status => project_status } %>
     </div>
-    <%= sortable_element('projects_urgency_' + urgency.to_s, :url => {:controller => 'projects', :action => 'update'}, :constraint => :vertical, :tag => 'div', :handle => 'dragger', :update => 'projects_client') if project_status == 'open' %>
+    <%= sortable_element('projects_urgency_' + urgency.to_s, :url => {:controller => 'projects', :action => 'update'}, :constraint => :vertical, :tag => 'div', :handle => 'dragger', :update => 'projects_client') if( project_status == 'open' ) %>
   <% end %>
   <div class="thing_controls"><%= link_to_function "new urgency " + urgency.to_s + " project", "document.getElementById('new_project_form_" + urgency.to_s + "').style.display = 'block'" %></div>
   <div class="project" id="new_project_form_<%=h urgency %>" style="display:none">

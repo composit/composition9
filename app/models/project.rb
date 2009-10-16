@@ -65,7 +65,7 @@ class Project < ActiveRecord::Base
   end
 
   def estimated_hours
-    tickets.inject(0) { |total_hours, ticket| total_hours + ticket.estimated_hours }
+    tickets.inject(0) { |total_hours, ticket| total_hours + ticket.estimated_hours.to_f }
   end
 
   def new_ticket(user_id)

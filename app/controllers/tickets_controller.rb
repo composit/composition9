@@ -68,11 +68,11 @@ class TicketsController < ApplicationController
           flash[:notice] = 'Ticket was successfully created.'
           format.html { redirect_to(@ticket) }
           format.xml  { render :xml => @ticket, :status => :created, :location => @ticket }
-          format.js   { render :partial => '/projects/projects_client', :object => @ticket.project.client, :locals => { :expanded_project => @ticket.project } }
+          format.js   { render :partial => '/projects/projects_client', :object => @ticket.project.client, :locals => { :expanded_project => @ticket.project, :project_status => "open" } }
         else
           format.html { render :action => "new" }
           format.xml  { render :xml => @ticket.errors, :status => :unprocessable_entity }
-          format.js   { render :partial => '/projects/projects_client', :object => @ticket.project.client, :locals => { :expanded_project => @ticket.project } }
+          format.js   { render :partial => '/projects/projects_client', :object => @ticket.project.client, :locals => { :expanded_project => @ticket.project, :project_status => "open" } }
         end
       end
     else

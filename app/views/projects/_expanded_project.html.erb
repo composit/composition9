@@ -12,7 +12,7 @@
       Brief description (add details in the comments)<br />
       <%= f.text_field :description, :size => "60" %>
     </p>
-    <% if current_user.is_admin %>
+    <% if( current_user.is_admin ) %>
       <p>
         Estimated hours<br />
         <%= f.text_field :estimated_hours, :size => "5" %>
