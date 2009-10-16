@@ -25,7 +25,7 @@ class Alert < ActiveRecord::Base
       dup = user.user_alerts.find(:first,
         :include => :alert,
         :conditions => {
-          :hidden_time => nil,
+          "user_alerts.hidden_time" => nil,
           "alerts.action_statement" => action_statement,
           "alerts.client_id" => client_id,
           "alerts.project_id" => project_id,
