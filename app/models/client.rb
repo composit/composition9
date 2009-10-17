@@ -11,8 +11,8 @@ class Client < ActiveRecord::Base
 
   attr_accessor :expanded_project
 
-  def before_save
-    self.active = true unless active
+  def before_create
+    self.active = true
   end
 
   def minutes_worked(week_of = nil, user_id = nil)

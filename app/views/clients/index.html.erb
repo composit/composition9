@@ -9,9 +9,8 @@
         <div class='urgency urgency_3'><%=h one_dec(client.open_hours(3)) %></div>
       </div>
       <div class='active_toggle'>
-        <% client.active = false %>
         <% form_for( client, :html => { :id => 'deactivate_client_' + client.id.to_s } ) do |f| %>
-          <%= f.hidden_field :active %>
+          <%= f.hidden_field :active, :value => 0 %>
         <% end %>
         <%= link_to_function "deactivate", "document.forms['deactivate_client_" + client.id.to_s + "'].submit()" %>
       </div>
@@ -28,7 +27,7 @@
       <div class='active_toggle'>
         <% client.active = true %>
         <% form_for( client, :html => { :id => 'activate_client_' + client.id.to_s } ) do |f| %>
-          <%= f.hidden_field :active %>
+          <%= f.hidden_field :active, :value => 1 %>
         <% end %>
         <%= link_to_function "activate", "document.forms['activate_client_" + client.id.to_s + "'].submit()" %>
       </div>
