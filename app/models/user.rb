@@ -32,7 +32,7 @@ class User < ActiveRecord::Base
   before_create :make_activation_code 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :phone, :address_line_1, :address_line_2, :city, :state, :zip, :is_admin
+  attr_accessible :login, :email, :password, :password_confirmation, :phone, :address_line_1, :address_line_2, :city, :state, :zip, :is_admin, :time_zone
 
   def before_validation
     phone.gsub!(/\D/, '') if phone
@@ -183,7 +183,7 @@ class User < ActiveRecord::Base
   def prioritized_client_users
     p_c_users = client_users.prioritized
     if( office_hour = office_hours.current.first )
-      p_c_users = p_c_users.reject{ |client_user| client_user.client_id == office_hour.client_id }.unshift( client_users.find( office_hour.client_id ) )
+      p_c_users = p_c_users.reject{ |client_user| client_user.client_id == office_hour.client_id }.unshift( client_users.find_by_client_id( office_hour.client_id ) )
     end
     p_c_users
   end

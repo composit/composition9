@@ -3,13 +3,13 @@
 one:
   client: three
   user: one
-  start_time: <%= 30.minutes.ago %>
-  end_time: <%= 30.minutes.since %>
+  start_time: 10000 # 1 o'clock
+  end_time: 230000 # 23 o'clock
   day_of_week: <%= Time.now.wday %>
 
 two:
   client: two
   user: two
-  start_time: 10:00:00
-  end_time: 20:00:00
+  start_time: 100000
+  end_time: 200000
   day_of_week: 2

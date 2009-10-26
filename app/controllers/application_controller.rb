@@ -2,7 +2,6 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  before_filter :set_user_time_zone
   helper :all # include all helpers, all the time
 
   # See ActionController::RequestForgeryProtection for details
@@ -16,6 +15,7 @@ class ApplicationController < ActionController::Base
   include AuthenticatedSystem
 
   before_filter :no_cache, :only => [:new]
+  before_filter :set_user_time_zone
 
   private
     def no_cache

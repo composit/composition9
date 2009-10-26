@@ -18,7 +18,7 @@ class UserMailer < ActionMailer::Base
       @recipients  = "#{user.email}"
       @from        = "system9@composition9.com"
       @subject     = "Composition9 "
-      @sent_on     = Time.now
+      @sent_on     = Time.zone.now
       @body[:user] = user
     end
 end
