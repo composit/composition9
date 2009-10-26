@@ -166,7 +166,7 @@ class User < ActiveRecord::Base
     highest_priority_ticket = false
     (1..3).each do |urgency|
       (0..1).each do |hours_left|
-        client_users.find(:all, :order => "priority").each do |client_user|
+        prioritized_client_users.each do |client_user|
           if client_user.client.hours_left_this_week > hours_left * -1 && client_user.client.active
             client_user.client.projects.find(:all, :conditions => ["closed_date is null && urgency = ?", urgency], :order => "priority").each do |project|
               project.tickets.find(:all, :conditions => [ "worker_id = :worker_id && closed_date is null", { :worker_id => id } ], :order => "priority").each do |ticket|
@@ -178,6 +178,14 @@ class User < ActiveRecord::Base
       end unless highest_priority_ticket
     end unless highest_priority_ticket
     highest_priority_ticket
+  end
+
+  def prioritized_client_users
+    p_c_users = client_users.prioritized
+    if( office_hour = office_hours.current.first )
+      p_c_users = p_c_users.reject{ |client_user| client_user.client_id == office_hour.client_id }.unshift( clients.find( office_hour.client_id ) )
+    end
+    p_c_users
   end
 
   def active_alerts
