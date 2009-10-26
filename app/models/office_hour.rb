@@ -1,5 +1,5 @@
 class OfficeHour < ActiveRecord::Base
-  named_scope :current, :conditions => [ "day_of_week = :day_of_week && start_time <= :now_time && end_time > :now_time", { :day_of_week => Time.now.wday, :now_time => Time.now.strftime("%H-%m-%s") } ]
+  named_scope :current, :conditions => [ "day_of_week = :day_of_week && start_time <= :now_time && end_time > :now_time", { :day_of_week => Time.zone.now.wday, :now_time => Time.zone.now.strftime("%H-%m-%s") } ]
 
   belongs_to :client
   belongs_to :user
