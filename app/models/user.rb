@@ -183,7 +183,7 @@ class User < ActiveRecord::Base
   def prioritized_client_users
     p_c_users = client_users.prioritized
     if( office_hour = office_hours.current.first )
-      p_c_users = p_c_users.reject{ |client_user| client_user.client_id == office_hour.client_id }.unshift( clients.find( office_hour.client_id ) )
+      p_c_users = p_c_users.reject{ |client_user| client_user.client_id == office_hour.client_id }.unshift( client_users.find( office_hour.client_id ) )
     end
     p_c_users
   end

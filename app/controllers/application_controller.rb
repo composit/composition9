@@ -2,6 +2,7 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+  before_filter :set_user_time_zone
   helper :all # include all helpers, all the time
 
   # See ActionController::RequestForgeryProtection for details
@@ -24,5 +25,9 @@ class ApplicationController < ActionController::Base
       response.headers["Pragma"] = "no-cache"
       # HTTP 1.1 ‘pre-check=0, post-check=0′ (IE specific)
       response.headers["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0, pre-check=0, post-check=0"
+    end
+
+    def set_user_time_zone
+      Time.zone = current_user.time_zone if logged_in?
     end
 end

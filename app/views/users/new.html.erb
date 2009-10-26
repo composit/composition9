@@ -32,5 +32,8 @@
 <p><label for="zip">Zip</label><br/>
 <%= f.text_field :zip, :size => "12", :maxlength => "10" %></p>
 
+<p><label for="time_zone">Time zone</label><br/>
+<%= f.select :time_zone, TimeZone.us_zones %>
+
 <p><%= submit_tag 'Sign up' %></p>
 <% end -%>
