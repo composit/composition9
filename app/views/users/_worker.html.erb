@@ -1,4 +1,7 @@
 <div id="current_block">
+  <% if( current_office_hour = worker.office_hours.current.first ) %>
+    Current office hour: <%=h( current_office_hour.client.name ) %>: <%= current_office_hour.time_string %>
+  <% end %>
   <% if worker.open_ticket_time %>
     <div class="name">
       <%= worker.open_ticket_time.ticket.full_description %>

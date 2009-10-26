@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091019015718) do
+ActiveRecord::Schema.define(:version => 20091026050849) do
 
   create_table "alerts", :force => true do |t|
     t.string   "action_statement"
@@ -171,6 +171,7 @@ ActiveRecord::Schema.define(:version => 20091019015718) do
     t.string   "state"
     t.string   "zip"
     t.boolean  "is_admin"
+    t.string   "time_zone",                               :default => "Mountain Time (US & Canada)"
   end
 
 end
