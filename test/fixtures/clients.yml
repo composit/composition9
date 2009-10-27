@@ -8,7 +8,6 @@ one:
   city: Chicago
   state: IL
   zip: 60622-1234
-  committed_week_hours: 10
   billing_rate_dollars: 1500
   billing_rate_unit: month
   active: true
@@ -21,7 +20,6 @@ two:
   city: Mosier
   state: OR
   zip: 12345
-  committed_week_hours: 4
   billing_rate_dollars: 49
   billing_rate_unit: hour
   active: true
@@ -34,7 +32,6 @@ three:
   city: Fort Collins
   state: CO
   zip: 80521
-  committed_week_hours: 20
   billing_rate_dollars: 55
   billing_rate_unit: hour
   active: true
@@ -47,7 +44,6 @@ four:
   city: Fort Collins
   state: CO
   zip: 80521
-  committed_week_hours: 20
   billing_rate_dollars: 55
   billing_rate_unit: hour
   active: false
