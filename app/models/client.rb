@@ -28,7 +28,7 @@ class Client < ActiveRecord::Base
   end
 
   def hours_left_this_week
-    hours_left = committed_week_hours( Time.now.wday ) - hours_worked( Time.now )
+    hours_left = committed_week_hours( Time.zone.now.wday ) - hours_worked( Time.zone.now )
     hours_left > 0 ? hours_left : 0
   end
 

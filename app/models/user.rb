@@ -226,7 +226,7 @@ class User < ActiveRecord::Base
   end
 
   def dollars_remaining_this_week( day = 6 )
-    dollars_remaining = ( WEEK_DOLLAR_ESTIMATE / 5 * Date.today.wday ) - dollars_earned( Time.now )
+    dollars_remaining = ( WEEK_DOLLAR_ESTIMATE / 5 * Date.today.wday ) - dollars_earned( Time.zone.now )
     dollars_remaining < 0 ? 0 : dollars_remaining
   end
 
