@@ -12,4 +12,11 @@ two:
   user: two
   start_time: 100000
   end_time: 200000
-  day_of_week: 2
+  day_of_week: <%= Time.now.wday + 1 %>
+
+three:
+  client: three
+  user: one
+  start_time: 110000
+  end_time: 150000
+  day_of_week: <%= Time.now.wday + 2 %>

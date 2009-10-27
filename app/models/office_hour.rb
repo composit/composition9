@@ -1,5 +1,6 @@
 class OfficeHour < ActiveRecord::Base
   named_scope :current, :conditions => [ "day_of_week = :day_of_week && start_time <= :now_time && end_time > :now_time", { :day_of_week => Time.now.wday, :now_time => Time.now.strftime("%H:%M:%S") } ]
+  named_scope :up_to_day, lambda { |value| { :conditions => [ "day_of_week <= ?", value ] } }
 
   belongs_to :client
   belongs_to :user
@@ -12,5 +13,9 @@ class OfficeHour < ActiveRecord::Base
 
   def time_string
     start_time.strftime("%H:%M:%S") + " - " + end_time.strftime("%H:%M:%S")
+  end
+
+  def length_in_hours
+    ( end_time - start_time ).to_f / 3600
   end
 end

@@ -225,6 +225,11 @@ class User < ActiveRecord::Base
     dollars_earned(Time.zone.now).to_f / WEEK_DOLLAR_ESTIMATE.to_f
   end
 
+  def dollars_remaining_this_week( day = 6 )
+    dollars_remaining = ( WEEK_DOLLAR_ESTIMATE / 5 * Date.today.wday ) - dollars_earned( Time.now )
+    dollars_remaining < 0 ? 0 : dollars_remaining
+  end
+
   def total_percent_this_week
     # ( ( percent_hours_this_week + percent_dollars_this_week ) / 2 * 100 ).round
     # ( percent_hours_this_week * 100 ).round

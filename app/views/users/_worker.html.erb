@@ -49,15 +49,16 @@
   <% end %>
 </div>
 <div id="status_block">
-  hours remaining:
-  <span class="<%=h current_user.hours_on_track ? "on_track" : "behind" %>">
-    <%=h one_dec(worker.hours_left_this_week) %>
-  </span> |
-  <span class="<%=h current_user.dollars_on_track ? "on_track" : "behind" %>">
-    <%=h number_to_currency( worker.dollars_earned(Time.zone.now) ) %>
-  </span> :
-  <span class="<%=h ( current_user.hours_on_track && current_user.dollars_on_track ) ? "on_track" : "behind" %>">
-    <%=h worker.total_percent_this_week %>%
+  <% worker.client_users.each do |client_user| %>
+    <% if( client_user.client.hours_left_this_week > 0 ) %>
+      <span class="on_track">
+        <%=h( client_user.client.name )%>:
+        <%=h( one_dec( client_user.client.hours_left_this_week ) )%>
+      </span>
+    <% end %>
+  <% end %>
+  | <span class="on_track">
+    <%=h number_to_currency( worker.dollars_remaining_this_week( Time.now ) ) %>
   </span>
 </div>
 <div id="alerts_block">

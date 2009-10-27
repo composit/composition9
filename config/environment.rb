@@ -94,6 +94,6 @@ Rails::Initializer.run do |config|
     [ "Wisconsin", "WI" ], 
     [ "Wyoming", "WY" ]
   ]
-  WEEK_DOLLAR_ESTIMATE = 1300
+  WEEK_DOLLAR_ESTIMATE = 1450
   WEEK_HOUR_ESTIMATE = 55
 end

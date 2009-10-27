@@ -23,8 +23,12 @@ class Client < ActiveRecord::Base
     minutes_worked(week_of, user_id) / 60
   end
 
+  def committed_week_hours( day = 6 )
+    office_hours.up_to_day( day ).inject(0){ |sum, office_hour| sum + office_hour.length_in_hours }
+  end
+
   def hours_left_this_week
-    hours_left = committed_week_hours - hours_worked(Time.zone.now)
+    hours_left = committed_week_hours( Time.now.wday ) - hours_worked( Time.now )
     hours_left > 0 ? hours_left : 0
   end
 

@@ -362,6 +362,7 @@ div.invoice_ticket_time {
   }
 
 div#status_block {
+  font-size: .8em;
   }
 
   div#status_block span.on_track {
