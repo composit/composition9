@@ -18,8 +18,4 @@ class OfficeHour < ActiveRecord::Base
   def length_in_hours
     ( end_time - start_time ).to_f / 3600
   end
-
-  def time_zone
-    Time.zone
-  end
 end
