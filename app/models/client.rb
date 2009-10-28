@@ -93,7 +93,7 @@ class Client < ActiveRecord::Base
 
   def overdue_for_invoicing?
     tickets.each do |ticket|
-      return true if( ticket.ticket_times.uninvoiced.before_date( invoice_span_start ).length > 0 )
+      return true if( ticket.ticket_times.uninvoiced.before_date( invoice_span_start ).length > 0 && billing_rate_unit != "never" )
     end
     return false
   end
