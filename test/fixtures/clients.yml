@@ -11,6 +11,8 @@ one:
   billing_rate_dollars: 1500
   billing_rate_unit: month
   active: true
+  invoice_span: 1
+  invoice_span_units: weeks
 
 two:
   name: Resource Revival
@@ -23,6 +25,8 @@ two:
   billing_rate_dollars: 49
   billing_rate_unit: hour
   active: true
+  invoice_span: 2
+  invoice_span_units: weeks
 
 three:
   name: Mothership Enterprises, LLC
@@ -35,6 +39,8 @@ three:
   billing_rate_dollars: 55
   billing_rate_unit: hour
   active: true
+  invoice_span: 1
+  invoice_span_units: months
 
 four:
   name: Pants, Inc.
@@ -47,3 +53,5 @@ four:
   billing_rate_dollars: 55
   billing_rate_unit: hour
   active: false
+  invoice_span: 2
+  invoice_span_units: months

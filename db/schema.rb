@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091027020113) do
+ActiveRecord::Schema.define(:version => 20091028024349) do
 
   create_table "alerts", :force => true do |t|
     t.string   "action_statement"
@@ -46,6 +46,8 @@ ActiveRecord::Schema.define(:version => 20091027020113) do
     t.integer  "billing_rate_dollars"
     t.string   "billing_rate_unit"
     t.boolean  "active"
+    t.integer  "invoice_span",         :default => 2
+    t.string   "invoice_span_units",   :default => "weeks"
   end
 
   create_table "invoice_adjustment_lines", :force => true do |t|

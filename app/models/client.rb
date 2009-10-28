@@ -3,6 +3,7 @@ class Client < ActiveRecord::Base
   has_many :users, :through => :client_users
   has_many :invoices
   has_many :projects
+  has_many :tickets, :through => :projects
   has_many :alerts
   has_many :office_hours
 
@@ -82,5 +83,18 @@ class Client < ActiveRecord::Base
 
   def total_unpaid_invoice_value
     invoices.unpaid.inject(0) { |total, invoice| total + invoice.total_amount }
+  end
+
+  def invoice_span_start
+    start = Time.zone.now - invoice_span.weeks if( invoice_span_units == "weeks" )
+    start = Time.zone.now - invoice_span.months if( invoice_span_units == "months" )
+    start
+  end
+
+  def overdue_for_invoicing?
+    tickets.each do |ticket|
+      return true if( ticket.ticket_times.uninvoiced.before_date( invoice_span_start ).length > 0 )
+    end
+    return false
   end
 end

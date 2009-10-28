@@ -180,6 +180,15 @@ div.clients {
         width: 50px;
       }
 
+    div.clients div.client div.invoicer {
+      float: left;
+      width: 50px;
+      }
+
+      div.clients div.client div.invoicer a {
+        color: #f00;
+      }
+
     div.clients div.client div.active_toggle {
       float: left;
       width: 80px;

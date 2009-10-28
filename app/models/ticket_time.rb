@@ -1,4 +1,7 @@
 class TicketTime < ActiveRecord::Base
+  named_scope :uninvoiced, :conditions => "invoice_id is null"
+  named_scope :before_date, lambda { |value| { :conditions => [ "start_time <= ?", value.strftime("%Y-%m-%d %H:%M:%S") ] } }
+
   belongs_to :ticket
   belongs_to :user
   belongs_to :invoice

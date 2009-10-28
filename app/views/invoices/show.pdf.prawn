@@ -3,7 +3,7 @@ pdf.text "Composition9 Design, LLC", :size => 24
 pdf.text "1625 W. Elizabeth, #H-6", :size => 8
 pdf.text "Fort Collins, CO  80521", :size => 8
 pdf.text "matt@composition9.com", :size => 8
-pdf.text "(970) 310-4329", :size => 8
+pdf.text "(970) 430-6717", :size => 8
 
 pdf.text "
 " + @invoice.client.name
