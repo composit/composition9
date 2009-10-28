@@ -110,7 +110,7 @@ class InvoicesController < ApplicationController
       @invoice.destroy
 
       respond_to do |format|
-        format.html { redirect_to(invoices_url) }
+        format.html { redirect_to invoices_path( :client_id  => @invoice.client_id ) }
         format.xml  { head :ok }
       end
     else
