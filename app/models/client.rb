@@ -16,8 +16,9 @@ class Client < ActiveRecord::Base
     self.active = true
   end
 
-  def minutes_worked(week_of = nil, user_id = nil)
-    projects.inject(0) { |total_minutes, project| total_minutes + project.minutes_worked(week_of, user_id) }
+  def minutes_worked( week_of = nil, user_id = nil )
+    # projects.inject(0) { |total_minutes, project| total_minutes + project.minutes_worked(week_of, user_id) }
+    TicketTime.sum_minutes_worked( { :client_id => id, :week_of => week_of, :user_id => user_id } )
   end
 
   def hours_worked(week_of = nil, user_id = nil)

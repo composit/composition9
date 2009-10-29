@@ -22,6 +22,8 @@ class Ticket < ActiveRecord::Base
   end
 
   def minutes_worked(week_of = nil, user_id = nil)
+    TicketTime.sum_minutes_worked( { :ticket_id => id, :week_of => week_of, :user_id => user_id } )
+=begin
     conditions_string = "1"
     conditions_hash = Hash.new
     if week_of
@@ -33,6 +35,7 @@ class Ticket < ActiveRecord::Base
       conditions_hash.merge!( { :user_id => user_id } )
     end
     ticket_times.find(:all, :conditions => [ conditions_string, conditions_hash ]).inject(0) { |total_minutes, ticket_time| total_minutes + ticket_time.minutes_worked }
+=end
   end
 
   def hours_worked(week_of = nil, user_id = nil)

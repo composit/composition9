@@ -2,6 +2,7 @@ class Project < ActiveRecord::Base
   belongs_to :client
   belongs_to :created_by_user, :class_name => "User"
   has_many :tickets, :dependent => :destroy
+  has_many :ticket_times, :through => :tickets
   has_many :alerts
 
   BILLING_RATE_UNITS = [
@@ -38,7 +39,8 @@ class Project < ActiveRecord::Base
   end
 
   def minutes_worked(week_of = nil, user_id = nil)
-    tickets.inject(0) { |total_minutes, ticket| total_minutes + ticket.minutes_worked(week_of, user_id) }
+    # tickets.inject(0) { |total_minutes, ticket| total_minutes + ticket.minutes_worked(week_of, user_id) }
+    TicketTime.sum_minutes_worked( { :project_id => id, :week_of => week_of, :user_id => user_id } )
   end
 
   def hours_worked(week_of = nil, user_id = nil)

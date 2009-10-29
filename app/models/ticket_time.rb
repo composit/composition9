@@ -44,4 +44,38 @@ class TicketTime < ActiveRecord::Base
     end_date = week_start_time(time).to_date + 7.days
     end_date.to_time
   end
+
+  def self.sum_minutes_worked( attributes ) # [ client_id, project_id, ticket_id, week_of, user_id ] - need one of client_id/project_id/ticket_id
+    conditions_string = "select SUM( TIMESTAMPDIFF(SECOND,start_time,end_time) ) as seconds from ticket_times left join tickets on ticket_times.ticket_id = tickets.id left join projects on tickets.project_id = projects.id where 1"
+    conditions_hash = Hash.new
+    if( attributes[:client_id] )
+      conditions_string += " and projects.client_id = :client_id"
+      conditions_hash.merge!( { :client_id => attributes[:client_id] } )
+    end
+    if( attributes[:project_id] )
+      conditions_string += " and tickets.project_id = :project_id"
+      conditions_hash.merge!( { :project_id => attributes[:project_id] } )
+    end
+    if( attributes[:ticket_id] )
+      conditions_string += " and ticket_times.ticket_id = :ticket_id"
+      conditions_hash.merge!( { :ticket_id => attributes[:ticket_id] } )
+    end
+    if( attributes[:week_of] )
+      conditions_string += " and start_time >= :week_start_time and start_time < :week_end_time"
+      conditions_hash.merge!( { :week_start_time => TicketTime.week_start_time(attributes[:week_of]).utc, :week_end_time => TicketTime.week_end_time(attributes[:week_of]).utc } )
+    end
+    if( attributes[:user_id] )
+      conditions_string += " and user_id = :user_id"
+      conditions_hash.merge!( { :user_id => attributes[:user_id] } )
+    end
+    if( attributes[:client_id] )
+      conditions_string += " GROUP BY client_id"
+    elsif( attributes[:project_id] )
+      conditions_string += " GROUP BY project_id"
+    elsif( attributes[:ticket_id] )
+      conditions_string += " GROUP BY ticket_id"
+    end
+    ticket_time = self.find_by_sql( [ conditions_string, conditions_hash ] )
+    ticket_time[0] ? ticket_time[0].seconds.to_f / 60 : 0
+  end
 end
