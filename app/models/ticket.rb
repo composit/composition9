@@ -51,4 +51,8 @@ class Ticket < ActiveRecord::Base
   def unbilled_ticket_times
     ticket_times.find( :all, :conditions => "invoice_id is null and end_time is not null" )
   end
+
+  def closed?
+    closed_date != nil
+  end
 end

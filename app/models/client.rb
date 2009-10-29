@@ -52,12 +52,14 @@ class Client < ActiveRecord::Base
   end
 
   def open_hours(urgency = nil)
+    logger.info("loading open hours " + urgency.to_s)
     conditions_string = "closed_date is null"
     conditions_hash = Hash.new
     if urgency
       conditions_string += " and urgency = :urgency"
       conditions_hash.merge!( { :urgency => urgency } )
     end
+    logger.info("almost done loading open hours " + urgency.to_s)
     projects.find(:all, :conditions => [ conditions_string, conditions_hash ]).inject(0) { |total_hours, project| total_hours + project.open_hours }
   end
 

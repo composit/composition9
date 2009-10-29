@@ -7,7 +7,9 @@ class ClientsController < ApplicationController
   # GET /clients
   # GET /clients.xml
   def index
+    logger.info("loading clients")
     @clients = current_user.active_clients
+    logger.info("loading inactive clients")
     @inactive_clients = current_user.active_clients(false)
 
     respond_to do |format|

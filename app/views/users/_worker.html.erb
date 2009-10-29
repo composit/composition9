@@ -37,12 +37,12 @@
         <% end %>
       <% end %>
     </div>
-  <% elsif worker.next_ticket %>
+  <% elsif @next_ticket %>
     <div class="name">
-      <%=h worker.next_ticket.full_description %>
+      <%=h @next_ticket.full_description %> <%= link_to_remote( "refresh", :update => "user_block", :url => new_ticket_time_path( :refresh_next_ticket => true ) ) %>
     </div>
     <div class="times">
-      <%= render :partial => "/ticket_times/new_ticket_time", :object => worker.new_ticket_time(worker.next_ticket.id) %>
+      <%= render :partial => "/ticket_times/new_ticket_time", :object => worker.new_ticket_time(@next_ticket.id) %>
     </div>
   <% else %>
     <div class="name">No current tickets</div>

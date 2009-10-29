@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
 
   before_filter :no_cache, :only => [:new]
   before_filter :set_user_time_zone
+  before_filter :get_next_ticket
 
   private
     def no_cache
@@ -29,5 +30,14 @@ class ApplicationController < ActionController::Base
 
     def set_user_time_zone
       Time.zone = current_user.time_zone if logged_in?
+    end
+
+    def get_next_ticket
+      if( logged_in? && current_user.is_worker? )
+        session[:next_ticket_id] = nil if( params[:refresh_next_ticket] )
+        @next_ticket = Ticket.find( session[:next_ticket_id] ) if( session[:next_ticket_id] )
+        @next_ticket = current_user.next_ticket if( @next_ticket.nil? || @next_ticket.closed? )
+        session[:next_ticket_id] = @next_ticket.id
+      end
     end
 end

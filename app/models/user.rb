@@ -163,6 +163,7 @@ class User < ActiveRecord::Base
   end
 
   def next_ticket
+    logger.info("getting next ticket")
     highest_priority_ticket = false
     (1..3).each do |urgency|
       (0..1).each do |hours_left|
@@ -177,14 +178,17 @@ class User < ActiveRecord::Base
         end unless highest_priority_ticket
       end unless highest_priority_ticket
     end unless highest_priority_ticket
+    logger.info("done getting next ticket")
     highest_priority_ticket
   end
 
   def prioritized_client_users
+    logger.info("loading current office hour")
     p_c_users = client_users.prioritized
     if( office_hour = office_hours.current.first )
       p_c_users = p_c_users.reject{ |client_user| client_user.client_id == office_hour.client_id }.unshift( client_users.find_by_client_id( office_hour.client_id ) )
     end
+    logger.info("done loading current office hour")
     p_c_users
   end
 
