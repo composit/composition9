@@ -79,8 +79,8 @@ class TicketTime < ActiveRecord::Base
     ticket_time = self.find_by_sql( [ "select SUM( TIMESTAMPDIFF(SECOND,start_time,end_time) ) as seconds " + select_string + " where end_time is not NULL" + conditions_string, conditions_hash ] )
     unfinished_ticket_time = self.find_by_sql( [ "select start_time " + select_string + " where end_time is NULL" + conditions_string, conditions_hash ] )
     minutes = ticket_time[0] ? ticket_time[0].seconds.to_f / 60 : 0
-    if( unfinished_ticket_time )
-      minutes += ( ( Time.zone.now - unfinished_ticket_time[0] ).to_f / 60 )
+    if( unfinished_ticket_time.length > 0 )
+      minutes += ( ( Time.zone.now - unfinished_ticket_time[0].start_time ).to_f / 60 )
     end
     return minutes
   end
