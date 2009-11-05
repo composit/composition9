@@ -46,7 +46,7 @@ class TicketTime < ActiveRecord::Base
   end
 
   def self.sum_minutes_worked( attributes ) # [ client_id, project_id, ticket_id, week_of, user_id ] - need one of client_id/project_id/ticket_id
-    conditions_string = "select SUM( TIMESTAMPDIFF(SECOND,start_time,end_time) ) as seconds from ticket_times left join tickets on ticket_times.ticket_id = tickets.id left join projects on tickets.project_id = projects.id where end_time not NULL"
+    conditions_string = String.new
     conditions_hash = Hash.new
     if( attributes[:client_id] )
       conditions_string += " and projects.client_id = :client_id"
@@ -75,9 +75,11 @@ class TicketTime < ActiveRecord::Base
     elsif( attributes[:ticket_id] )
       conditions_string += " GROUP BY ticket_id"
     end
-    ticket_time = self.find_by_sql( [ conditions_string, conditions_hash ] )
+    select_string = "from ticket_times left join tickets on ticket_times.ticket_id = tickets.id left join projects on tickets.project_id = projects.id"
+    ticket_time = self.find_by_sql( [ "select SUM( TIMESTAMPDIFF(SECOND,start_time,end_time) ) as seconds " + select_string + " where end_time not NULL" + conditions_string, conditions_hash ] )
+    unfinished_ticket_time = self.find_by_sql( [ "select start_time " + select_string + " where end_time is NULL" + conditions_string, conditions_hash ] )
     minutes = ticket_time[0] ? ticket_time[0].seconds.to_f / 60 : 0
-    if( unfinished_ticket = self.ticket_times.find( :first, :conditions => { :end_time => nil } )
+    if( unfinished_ticket_time )
       minutes += ( ( Time.zone.now - unfinished_ticket.start_time ).to_f / 60 )
     end
     return minutes
