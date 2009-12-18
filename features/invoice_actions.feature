@@ -4,7 +4,7 @@ Feature: Invoice Actions
   I want to set and view values
 
   Scenario Outline: View time to next invoice
-    Given I have a client named Test
+    Given there is a client named Test
     Given Test has an invoice period of 2 weeks
     Given Test has an invoice dated <invoice_days_ago> days ago
     Given the following user records
