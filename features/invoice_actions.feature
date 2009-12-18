@@ -20,4 +20,3 @@ Feature: Invoice Actions
     Examples:
       | invoice_days_ago | tt_invoiced_or_uninvoiced | tt_days_ago | action                                        |
       |                  | "uninvoiced"              | 20          | see "Your next invoice will be available on " |
-      | 

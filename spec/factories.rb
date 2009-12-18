@@ -21,6 +21,13 @@ Factory.define :invoice do |f|
   f.invoice_date Date.today
 end
 
+Factory.define( :invoice_adjustment_line ) do |f|
+end
+
+Factory.define( :office_hour ) do |f|
+  f.day_of_week 1
+end
+
 Factory.define :pause do |f|
   f.title "Break"
   f.interval 60
@@ -30,11 +37,14 @@ end
 
 Factory.define :project do |f|
   f.association :client
-  f.association :created_by_user
+  f.created_by_user { |a| a.association( :user ) }
   f.title "Good Project"
   f.billing_rate_dollars 20
   f.billing_rate_unit "hour"
   f.urgency 2
+end
+
+Factory.define( :project_user ) do |f|
 end
 
 Factory.define :ticket_comment do |f|
@@ -51,7 +61,7 @@ end
 
 Factory.define :ticket do |f|
   f.association :project
-  f.association :created_by_user
+  f.created_by_user { |a| a.association( :user ) }
   f.description "go to the store"
 end
 
