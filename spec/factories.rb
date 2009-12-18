@@ -8,6 +8,10 @@ Factory.define :client_user do |f|
   f.association :user
 end
 
+Factory.define( :worker_client_user, :parent => :client_user ) do |f|
+  f.is_worker true
+end
+
 Factory.define :client do |f|
   f.name "Test Client"
   f.address_line_1 "123 Street Ave."
@@ -16,9 +20,20 @@ Factory.define :client do |f|
   f.zip "80521"
 end
 
+Factory.define( :client_with_worker, :parent => :client ) do |f|
+  f.after_create { |client| Factory( :worker_client_user, :client_id => client.id ) }
+end
+
 Factory.define :invoice do |f|
   f.association :client
   f.invoice_date Date.today
+end
+
+Factory.define( :invoice_adjustment_line ) do |f|
+end
+
+Factory.define( :office_hour ) do |f|
+  f.day_of_week 1
 end
 
 Factory.define :pause do |f|
@@ -30,11 +45,18 @@ end
 
 Factory.define :project do |f|
   f.association :client
-  f.association :created_by_user
+  f.created_by_user { |a| a.association( :user ) }
   f.title "Good Project"
   f.billing_rate_dollars 20
   f.billing_rate_unit "hour"
   f.urgency 2
+end
+
+Factory.define( :project_with_worker, :parent => :project ) do |f|
+  f.client { |a| a.association( :client_with_worker ) }
+end
+
+Factory.define( :project_user ) do |f|
 end
 
 Factory.define :ticket_comment do |f|
@@ -50,8 +72,8 @@ Factory.define :ticket_time do |f|
 end
 
 Factory.define :ticket do |f|
-  f.association :project
-  f.association :created_by_user
+  f.project { |a| a.association( :project_with_worker ) }
+  f.created_by_user { |a| a.association( :user ) }
   f.description "go to the store"
 end
 
