@@ -1,5 +1,4 @@
 class ClientsController < ApplicationController
-
   layout "admin"
 
   before_filter :login_required
@@ -96,9 +95,7 @@ class ClientsController < ApplicationController
   end
 
   protected
-    
     def authorized?
       logged_in? && ( current_user.is_admin || ( params[:id] && current_user.is_client_admin?(params[:id]) ) )
     end
-
 end

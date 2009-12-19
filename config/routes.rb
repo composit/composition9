@@ -1,4 +1,6 @@
 ActionController::Routing::Routes.draw do |map|
+  map.resources :office_hours
+
   map.resources :invoice_adjustment_lines
 
   map.resources :user_alerts

@@ -1,0 +1,28 @@
+<% title "Office Hour" %>
+
+<p>
+  <strong>Client:</strong>
+  <%=h @office_hour.client_id %>
+</p>
+<p>
+  <strong>User:</strong>
+  <%=h @office_hour.user_id %>
+</p>
+<p>
+  <strong>Day Of Week:</strong>
+  <%=h @office_hour.day_of_week %>
+</p>
+<p>
+  <strong>Start Time:</strong>
+  <%=h @office_hour.start_time %>
+</p>
+<p>
+  <strong>End Time:</strong>
+  <%=h @office_hour.end_time %>
+</p>
+
+<p>
+  <%= link_to "Edit", edit_office_hour_path(@office_hour) %> |
+  <%= link_to "Destroy", @office_hour, :confirm => 'Are you sure?', :method => :delete %> |
+  <%= link_to "View All", office_hours_path %>
+</p>
