@@ -28,8 +28,8 @@
       <% end %>
       <% for pause in worker.pauses %>
         <% remote_form_for(pause.new_user_pause, :update => "user_block", :html => { :id => "pause_" + pause.id.to_s }) do |f| %>
-          <%= f.hidden_field :user_id %>
-          <%= f.hidden_field :pause_id %>
+					<%= f.hidden_field :user_id, :id => "user_pause_user_#{pause.id}" %>
+          <%= f.hidden_field :pause_id, :id => "user_pause_pause_#{pause.id}"  %>
         <% end %>
       <% end %>
       <% if worker.open_user_pause %>

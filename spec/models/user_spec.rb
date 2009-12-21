@@ -6,6 +6,13 @@ describe User do
     user.should be_valid
   end
 
+  it "should return alphabetical users" do
+		Factory( :user, :login => "xyz" )
+		Factory( :user, :login => "abc" )
+		Factory( :user, :login => "lmn" )
+		User.alphabetical.collect { |user| user.login }.should eql( [ "abc", "lmn", "xyz" ] )
+	end
+
   it "should not create a new instance given invalid attributes" do
     #TODO invalid
   end

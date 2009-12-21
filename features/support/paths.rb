@@ -10,8 +10,8 @@ module NavigationHelpers
     
     when /the home\s?page/
       '/'
-    when /the new office_hour page/
-      new_office_hour_path
+	  when /the office hours page/
+			office_hours_path
 
     
     # Add more mappings here.

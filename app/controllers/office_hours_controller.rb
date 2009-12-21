@@ -7,26 +7,8 @@ class OfficeHoursController < ApplicationController
     @office_hours = OfficeHour.all
   end
   
-  def show
-    @office_hour = OfficeHour.find(params[:id])
-  end
-  
   def new
     @office_hour = OfficeHour.new
-  end
-  
-  def create
-    @office_hour = OfficeHour.new(params[:office_hour])
-    if @office_hour.save
-      flash[:notice] = "Successfully created office hour."
-      redirect_to @office_hour
-    else
-      render :action => 'new'
-    end
-  end
-  
-  def edit
-    @office_hour = OfficeHour.find(params[:id])
   end
   
   def update

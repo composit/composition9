@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   attr_accessor :password
 
   named_scope :admin, :conditions => { :is_admin => true }
+	named_scope :alphabetical, :order => :login
 
   has_many :client_users
   has_many :clients, :through => :client_users

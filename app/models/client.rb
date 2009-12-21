@@ -1,4 +1,6 @@
 class Client < ActiveRecord::Base
+	named_scope :alphabetical, :order => :name
+
   has_many :client_users
   has_many :users, :through => :client_users
   has_many :invoices
