@@ -8,7 +8,7 @@
     <th>Start Time</th>
     <th>End Time</th>
   </tr>
-	<% form_tag( office_hour, :method => :put ) %>
+	<% form_tag( OfficeHour.new, :method => :put ) do %>
 		<% for office_hour in @office_hours %>
 			<tr>
 				<td><%=h office_hour.client_id %></td>
