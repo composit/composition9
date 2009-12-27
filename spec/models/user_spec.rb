@@ -17,6 +17,30 @@ describe User do
     #TODO invalid
   end
 
+  it "should update office hours" do
+    user = Factory( :user )
+    office_hour_one = Factory( :office_hour, :user_id => user.id, :start_time => "12:30" )
+    office_hour_two = Factory( :office_hour, :user_id => user.id, :day_of_week => 1 )
+    office_hour_three = Factory( :office_hour, :user_id => user.id, :end_time => "12:30" )
+    user.office_hour_attributes=( { "1" => { :id => office_hour_two.id, :day_of_week => 3 }, "2" => { :id => office_hour_one.id, :start_time => "01:00" }, "3" => { :id => office_hour_three.id, :end_time => "01:00" } } )
+    OfficeHour.find( office_hour_one.id ).start_time.strftime( "%H:%M" ).should eql( "01:00" )
+    OfficeHour.find( office_hour_two.id ).day_of_week.should eql( 3 )
+    OfficeHour.find( office_hour_three.id ).end_time.strftime( "%H:%M" ).should eql( "01:00" )
+  end
+
+  it "should not update office hours of another user" do
+    user = Factory( :user )
+    office_hour_one = Factory( :office_hour, :day_of_week => 1 )
+    user.office_hour_attributes=( { :id => office_hour_one.id, :day_of_week => 3 } )
+    OfficeHour.find( office_hour_one.id ).day_of_week.should eql( 1 )
+  end
+
+  it "should add new office hours" do
+    user = Factory( :user )
+    user.update_attributes( :number_of_office_hours_to_add => "3" )
+    user.office_hours.length.should eql( 3 )
+  end
+
   it "should return admin users" do
     #TODO admin
   end

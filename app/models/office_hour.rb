@@ -7,6 +7,14 @@ class OfficeHour < ActiveRecord::Base
 
   validates_numericality_of :day_of_week
 
+  attr_accessor :delete_me
+
+  def before_validation_on_create
+    self.day_of_week = 6 unless( day_of_week )
+    self.start_time = "18:30" unless( start_time )
+    self.end_time = "19:30" unless( end_time )
+  end
+
   def date
     Time.zone.now.beginning_of_week + day_of_week.days
   end

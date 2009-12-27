@@ -10,9 +10,11 @@ module NavigationHelpers
     
     when /the home\s?page/
       '/'
-	  when /the office hours page/
-			office_hours_path
+    when /the new user page/
+      new_user_path
 
+	  when /the edit page for (.*)/
+      edit_user_path( User.find_by_login( $1 ) )
     
     # Add more mappings here.
     # Here is a more fancy example:

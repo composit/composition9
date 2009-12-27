@@ -1,0 +1,32 @@
+<% title "Office Hours" %>
+
+<% form_for( @user ) do |f| %>
+    <table>
+    <tr>
+      <th>Client</th>
+      <th>User</th>
+      <th>Day Of Week</th>
+      <th>Start Time</th>
+      <th>End Time</th>
+    </tr>
+		<% @user.office_hours.each_with_index do |office_hour, n| %>
+      <% fields_for( "user[office_hour_attributes][#{n}]", office_hour ) do |u| %>
+        <tr>
+          <%= u.hidden_field :id %>
+          <td><%= u.select :client_id, Client.alphabetical.collect { |client| [ client.name, client.id ] } %></td>
+          <td><%= u.select :user_id, User.alphabetical.collect { |user| [ user.login, user.id ] } %></td>
+          <td><%= u.select :day_of_week, (0..7).collect { |weekday| [ Date::ABBR_DAYNAMES[ weekday ], weekday ] } %></td>
+          <td><%= u.time_select :start_time %></td>
+          <td><%= u.time_select :end_time %></td>
+          <td><%= u.check_box :delete_me %></td>
+        </tr>
+      <% end %>
+		<% end %>
+    <tr>
+      <td colspan="5">Add <%= f.text_field :number_of_office_hours_to_add, :size => 3 %> new office hours</td>
+    </tr>
+    <tr>
+      <td colspan="5"><%= submit_tag "Update office hours" %></td>
+    </tr>
+  </table>
+<% end %>

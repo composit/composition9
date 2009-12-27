@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   before_create :make_activation_code 
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :password, :password_confirmation, :phone, :address_line_1, :address_line_2, :city, :state, :zip, :is_admin, :time_zone
+  attr_accessible :login, :email, :password, :password_confirmation, :phone, :address_line_1, :address_line_2, :city, :state, :zip, :is_admin, :time_zone, :office_hour_attributes, :number_of_office_hours_to_add
 
   def before_validation
     phone.gsub!(/\D/, '') if phone
@@ -239,6 +239,22 @@ class User < ActiveRecord::Base
     # ( ( percent_hours_this_week + percent_dollars_this_week ) / 2 * 100 ).round
     # ( percent_hours_this_week * 100 ).round
     ( hours_worked( Time.zone.now ) / WEEK_HOUR_ESTIMATE * 100 ).round
+  end
+
+  def office_hour_attributes=( attributes )
+    attributes.each do |index, office_hour_attributes|
+      if( office_hour = office_hours.find_by_id( office_hour_attributes[ :id ] ) )
+        office_hour.update_attributes( office_hour_attributes )
+      end
+    end
+  end
+
+  def number_of_office_hours_to_add
+    0
+  end
+
+  def number_of_office_hours_to_add=( number )
+    number.to_i.times { OfficeHour.create( :user_id => id ) }
   end
 
   protected

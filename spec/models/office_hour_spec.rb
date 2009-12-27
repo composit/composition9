@@ -6,6 +6,13 @@ describe OfficeHour do
     office_hour.should be_valid
   end
 
+  it "should set default date and time attributes" do
+    office_hour = Factory( :office_hour, :day_of_week => nil )
+    office_hour.day_of_week.should eql( 6 )
+    office_hour.start_time.strftime( "%H:%M" ).should eql( "18:30" )
+    office_hour.end_time.strftime( "%H:%M" ).should eql( "19:30" )
+  end
+
   it "should not create a new instance given invalid attributes" do
     #TODO invalid
   end

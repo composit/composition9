@@ -1,10 +1,6 @@
 class UsersController < ApplicationController
-
   layout "admin"
-
-  # render new.rhtml
-  def new
-  end
+  #TODO migrate to authlogic and cancan
 
   # GET /users/1
   # GET /users/1.xml
@@ -16,6 +12,14 @@ class UsersController < ApplicationController
       format.html # show.html.erb
       format.xml  { render :xml => xml_user }
     end
+  end
+
+  # render new.rhtml
+  def new
+  end
+
+  def edit
+    @user = User.find( params[:id] )
   end
 
   def create
@@ -38,6 +42,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def update
+    @user = User.find( params[:id] )
+    if( @user.update_attributes( params[:user] ) )
+      redirect_to( edit_user_path( @user ) )
+    else
+      render( :action => :edit )
+    end
+  end
+
+  #TODO make this restful
   def activate
     self.current_user = params[:activation_code].blank? ? false : User.find_by_activation_code(params[:activation_code])
     if logged_in? && !current_user.active?
@@ -46,5 +60,4 @@ class UsersController < ApplicationController
     end
     redirect_to :controller => "sessions", :action => "new"
   end
-
 end
