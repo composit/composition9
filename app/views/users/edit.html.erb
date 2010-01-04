@@ -4,21 +4,21 @@
     <table>
     <tr>
       <th>Client</th>
-      <th>User</th>
       <th>Day Of Week</th>
       <th>Start Time</th>
       <th>End Time</th>
     </tr>
-		<% @user.office_hours.each_with_index do |office_hour, n| %>
+		<% @user.office_hours.chronological.each_with_index do |office_hour, n| %>
       <% fields_for( "user[office_hour_attributes][#{n}]", office_hour ) do |u| %>
         <tr>
-          <%= u.hidden_field :id %>
           <td><%= u.select :client_id, Client.alphabetical.collect { |client| [ client.name, client.id ] } %></td>
-          <td><%= u.select :user_id, User.alphabetical.collect { |user| [ user.login, user.id ] } %></td>
-          <td><%= u.select :day_of_week, (0..7).collect { |weekday| [ Date::ABBR_DAYNAMES[ weekday ], weekday ] } %></td>
+          <td><%= u.select :day_of_week, Date::ABBR_DAYNAMES.each_with_index %></td>
           <td><%= u.time_select :start_time %></td>
           <td><%= u.time_select :end_time %></td>
-          <td><%= u.check_box :delete_me %></td>
+          <td>
+            <%= u.check_box :delete_me %>
+            <%= u.hidden_field :id %>
+          </td>
         </tr>
       <% end %>
 		<% end %>

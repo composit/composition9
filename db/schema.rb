@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20091028024349) do
+ActiveRecord::Schema.define(:version => 20100104071744) do
 
   create_table "alerts", :force => true do |t|
     t.string   "action_statement"
@@ -18,6 +18,15 @@ ActiveRecord::Schema.define(:version => 20091028024349) do
     t.integer  "ticket_id"
     t.integer  "ticket_comment_id"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "budget_adjustments", :force => true do |t|
+    t.decimal  "amount",          :precision => 10, :scale => 2
+    t.integer  "user_id"
+    t.string   "description"
+    t.date     "adjustment_date"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

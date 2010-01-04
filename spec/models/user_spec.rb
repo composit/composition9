@@ -192,4 +192,21 @@ describe User do
   it "should determine the total percent this week" do
     #TODO total_percent_this_week
   end
+
+  it "should determine budget_track" do
+    user = Factory( :user )
+    client = Factory( :client )
+    client_user = Factory( :client_user, :user_id => user.id, :client_id => client.id, :is_worker => 1 )
+    project = Factory( :project, :client_id => client.id, :billing_rate_dollars => 100, :billing_rate_unit => "hour" )
+    ticket = Factory( :ticket, :project_id => project.id )
+    Factory( :ticket_time, :ticket_id => ticket.id, :user_id => user.id, :start_time => "2010-02-10 01:00:00", :end_time => "2010-02-10 06:00:00" )
+    Factory( :ticket_time, :ticket_id => ticket.id, :user_id => user.id, :start_time => "2010-02-12 01:00:00", :end_time => "2010-02-12 06:00:00" )
+    Factory( :ticket_time, :ticket_id => ticket.id, :user_id => user.id, :start_time => "2010-02-01 01:00:00", :end_time => "2010-02-01 06:00:00" )
+    Factory( :budget_adjustment, :user_id => user.id, :amount => -100, :adjustment_date => "2010-02-02" )
+    Factory( :budget_adjustment, :user_id => user.id, :amount => 10000, :adjustment_date => "2010-02-13" )
+
+    user.budget_track( Date.parse( "2010-02-02" ) ).should eql( -6780 ) # ( -1450 * 4 ) + ( -290 * 2 ) + ( -100 ) + 500
+    user.budget_track( Date.parse( "2010-02-10" ) ).should eql( -7220 ) # ( -1450 * 5 ) + ( -290 * 3 ) + ( -100 ) + 1000
+    user.budget_track( Date.parse( "2010-02-13" ) ).should eql( 2700 ) # ( -1450 * 6 ) + ( -100 + 10000 ) + 1500
+  end
 end

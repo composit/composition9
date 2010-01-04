@@ -13,6 +13,15 @@ describe OfficeHour do
     office_hour.end_time.strftime( "%H:%M" ).should eql( "19:30" )
   end
 
+  it "should return office hours in order chronologically" do
+    Factory( :office_hour, :day_of_week => 4, :start_time => "10:00" )
+    Factory( :office_hour, :day_of_week => 1, :start_time => "10:00" )
+    Factory( :office_hour, :day_of_week => 1, :start_time => "9:55" )
+    Factory( :office_hour, :day_of_week => 1, :start_time => "16:55" )
+    Factory( :office_hour, :day_of_week => 3, :start_time => "10:00" )
+    OfficeHour.chronological.collect { |office_hour| [ office_hour.day_of_week, office_hour.start_time.strftime( "%H:%M" ) ] }.should eql( [ [1,"09:55"], [1,"10:00"], [1,"16:55"], [3,"10:00"], [4,"10:00"] ] )
+  end
+
   it "should not create a new instance given invalid attributes" do
     #TODO invalid
   end
