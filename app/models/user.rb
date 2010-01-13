@@ -259,6 +259,14 @@ class User < ActiveRecord::Base
   end
 
   def budget_track( track_date )
+    start_date = track_date.beginning_of_year
+    end_date = track_date + 24.hours
+    conditions = [ "start_time >= ? AND start_time <= ?", start_date, end_date ]
+    day = ( track_date.wday > 5 ? 5 : track_date.wday )
+    budget = ( ( track_date.strftime( "%U" ).to_i - 1 ) * WEEK_DOLLAR_ESTIMATE ) + ( day * WEEK_DOLLAR_ESTIMATE / 5 )
+    dollars = ticket_times.find(:all, :conditions => [ "start_time >= ? AND start_time <= ?", start_date, end_date ] ).inject(0) { |total_dollars, ticket_time| total_dollars + ticket_time.dollars }
+    adjustments = budget_adjustments.sum( :amount, :conditions => [ "adjustment_date >= ? AND adjustment_date <= ?", start_date, end_date ] )
+    return( ( -1 * budget ) + adjustments + dollars )
   end
 
   protected

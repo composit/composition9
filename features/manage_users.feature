@@ -33,7 +33,6 @@ Feature: Manage users
       |3  |Thu        |Test Client 2|13           |30           |15         |00         |
       |4  |Mon        |Test Client 1|12           |30           |13         |30         |
     And I press "Update office hours"
-    Then show me the page
     And I should see the following office hours in order:
       |row|day_of_week|client_id    |start_time_4i|start_time_5i|end_time_4i|end_time_5i|
       |0  |Mon        |Test Client 1|12           |30           |13         |30         |

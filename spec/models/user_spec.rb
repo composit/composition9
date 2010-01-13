@@ -204,9 +204,10 @@ describe User do
     Factory( :ticket_time, :ticket_id => ticket.id, :user_id => user.id, :start_time => "2010-02-01 01:00:00", :end_time => "2010-02-01 06:00:00" )
     Factory( :budget_adjustment, :user_id => user.id, :amount => -100, :adjustment_date => "2010-02-02" )
     Factory( :budget_adjustment, :user_id => user.id, :amount => 10000, :adjustment_date => "2010-02-13" )
+    Factory( :budget_adjustment, :amount => 10, :adjustment_date => "2010-02-01" )
 
-    user.budget_track( Date.parse( "2010-02-02" ) ).should eql( -6780 ) # ( -1450 * 4 ) + ( -290 * 2 ) + ( -100 ) + 500
-    user.budget_track( Date.parse( "2010-02-10" ) ).should eql( -7220 ) # ( -1450 * 5 ) + ( -290 * 3 ) + ( -100 ) + 1000
-    user.budget_track( Date.parse( "2010-02-13" ) ).should eql( 2700 ) # ( -1450 * 6 ) + ( -100 + 10000 ) + 1500
+    user.budget_track( Date.parse( "2010-02-02" ) ).should eql( -5980.0 ) # ( -1450 * 4 ) + ( -290 * 2 ) + ( -100 ) + 500
+    user.budget_track( Date.parse( "2010-02-10" ) ).should eql( -7220.0 ) # ( -1450 * 5 ) + ( -290 * 3 ) + ( -100 ) + 1000
+    user.budget_track( Date.parse( "2010-02-13" ) ).should eql( 2700.0 ) # ( -1450 * 6 ) + ( -100 + 10000 ) + 1500
   end
 end
