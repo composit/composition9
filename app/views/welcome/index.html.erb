@@ -1,0 +1,16 @@
+<%= image_tag "c9_logo.png", :id => "upper_logo", :class => "clear" %>
+
+<%= image_tag "facer.jpg", :id => "facer" %>
+
+<p>Composition9 Design, LLC is Matt Rose.  I am a professional web developer based in Fort Collins, Colorado.  I work on a wide variety of projects, from informational web pages to internal information management systems. Feel free to send me your project proposals.  If I do not think my skills are the right match for your project, I might be able to point you in the right direction.</p>
+
+<h3>I build highly accessible, highly functional web pages and browser-based information systems.</h3>
+
+<p>My focus is server-side scripting and standards-compliant web development.  I mainly code using Ruby on Rails, MySQL, Javascript (AJAX), CSS and XHTML, and am well-versed in many other technologies, including, but not limited to: PHP, Apache, Mongrel, Crystal Reports, Linux, Subversion.</p>
+
+<p>I work closely with graphic designers to build your site to your aesthetic specifications.  We make it look great.  Or if you have a graphic designer you would like to play the design role in your project, I work well in a team environment.</p>
+
+<ul id="welcome-links">
+  <li><%= link_to "contact", user_path( User.find_by_login( "matt" ) ) %></li>
+  <li><%= link_to "login", new_session_path %></li>
+</ul>

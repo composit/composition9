@@ -1,1 +1,11 @@
-<h1 id='percent'>$<%= @user.budget_track( Time.now ).to_i %></h1>
+<embed width="320" height="261" src="http://ustream.tv/S5Mb2A9hESGOfdkX3KA3Ng.usc" type="application/x-shockwave-flash" wmode="transparent"/>
+<!-- Beginning of meebo me widget code. Want to talk with visitors on your page? Go to http://www.meebome.com/ and get your widget! --> <embed src="http://widget.meebo.com/mm.swf?pJQixZyxLb" type="application/x-shockwave-flash" wmode="transparent" width="190" height="275"></embed>
+<h1>You are viewing anonymously.  Feel free to send me a note!</h1>
+<p>If you do not see me in the window above, I am not working or am bandwidth-restricted.</p>
+<h2><script type='text/javascript'>document.write( "<a href='mai" + "lto:" + "mat" + "t@comp" + "osition9" + ".com" + "'>mat" + "t@comp" + "osition9" + ".com" + "</a>" );</script></h2>
+<h2>AIM/GTalk: comp9matt</h2>
+<h2>970-430-6717</h2>
+
+<%= link_to "back", "/" %>
+
+<p id='percent' class="<%= @user.budget_track( Time.now ) > 0 ? "above" : "below" %>"><%= @user.budget_track( Time.now ).abs.to_i %></p>

@@ -382,12 +382,33 @@ div#status_block {
     color: #f00;
   }
 
-h1#percent {
-  font-size: 10em;
-  text-align: center;
+p#percent {
+  font-size: .8em;
+  float: right;
+}
+
+p.above {
+  color: #0f0;
+}
+
+p.below {
+  color: #f00;
 }
 
 div.work-talk {
   float: left;
   margin: 20px;
+}
+
+img#facer {
+  float: left;
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid #fff;
+}
+
+img#upper_logo {
+  float: right;
+  margin-top: -30px;
+  margin-bottom: 10px;
 }
