@@ -1,1 +1,1 @@
-<h1 id='percent'><%= @user.budget_track %>%</h1>
+<h1 id='percent'>$<%= @user.budget_track( Time.now ).to_i %></h1>
