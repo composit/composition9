@@ -15,7 +15,7 @@
   <% if current_user.is_admin && project_status == 'open' %>
     <div class='thing_controls'>
       <div class='control'>
-        <%= render :partial => '/projects/project_to_close', :object => project %>
+        <%= render :partial => '/projects/project_to_change', :object => project %>
       </div>
       <div class="clear"></div>
     </div>

@@ -1,4 +1,0 @@
-<%= link_to_function "close project", "document.forms['close_project_" + project_to_close.id.to_s + "'].onsubmit()" %>
-<% remote_form_for(project_to_close, :update => "projects_client", :html => { :id => "close_project_" + project_to_close.id.to_s }) do |f| %>
-  <%= f.hidden_field :close_me, :value => '1' %>
-<% end %>

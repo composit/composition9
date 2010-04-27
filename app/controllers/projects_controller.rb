@@ -3,19 +3,12 @@ class ProjectsController < ApplicationController
 
   before_filter :login_required, :get_project_status
 
-  # GET /projects
-  # GET /projects.xml
   def index
     @expanded_project = Project.find( params[:expanded_project_id] ) if params[:expanded_project_id]
     if params[:client_id]
       @client = Client.find(params[:client_id])
       if current_user.is_admin || current_user.belongs_to_client?(@client.id)
         @closed_projects = @client.closed_projects if @project_status == 'closed'
-
-        respond_to do |format|
-          format.html # index.html.erb
-          format.xml  { render :xml => @projects }
-        end
       else
         redirect_to new_session_path
       end
@@ -24,15 +17,12 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/1
-  # GET /projects/1.xml
   def show
     @project = Project.find(params[:id])
 
     if current_user.is_admin || current_user.belongs_to_client?(@project.client_id)
       respond_to do |format|
         format.html # show.html.erb
-        format.xml  { render :xml => @project }
         format.js   {
           if params[:collapser]
             render :partial => "collapsed_project", :object => @project, :locals => { :project_status => @project_status }
@@ -46,18 +36,10 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # GET /projects/new
-  # GET /projects/new.xml
   def new
     @project = Project.new
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.xml  { render :xml => @project }
-    end
   end
 
-  # GET /projects/1/edit
   def edit
     if current_user.is_admin
       @project = Project.find(params[:id])
@@ -66,8 +48,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # POST /projects
-  # POST /projects.xml
   def create
     @project = Project.new(params[:project])
 
@@ -81,11 +61,9 @@ class ProjectsController < ApplicationController
           )
           flash.now[:notice] = 'Project was successfully created.'
           format.html { redirect_to(@project) }
-          format.xml  { render :xml => @project, :status => :created, :location => @project }
           format.js   { render :partial => "/projects/projects_client", :object => @project.client, :locals => { :expanded_project => @project, :project_status => @project_status } }
         else
           format.html { render :action => "new" }
-          format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
           format.js   { render :partial => "/projects/projects_client", :object => @project.client, :locals => { :expanded_project => @project, :project_status => @project_status } }
         end
       end
@@ -94,8 +72,6 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # PUT /projects/1
-  # PUT /projects/1.xml
   def update
     if params[:id]
       if current_user.is_admin
@@ -110,11 +86,9 @@ class ProjectsController < ApplicationController
             ) if @project.close_me
             flash[:notice] = 'Project was successfully updated.'
             format.html { redirect_to(@project) }
-            format.xml  { head :ok }
             format.js   { render :partial => "/projects/projects_client", :object => @project.client, :locals => { :expanded_project => @project, :project_status => @project_status } }
           else
             format.html { render :action => "edit" }
-            format.xml  { render :xml => @project.errors, :status => :unprocessable_entity }
             format.js   { render :partial => "/projects/projects_client", :object => @project.client, :locals => { :expanded_project => @project, :project_status => @project_status } }
           end
         end
@@ -137,17 +111,12 @@ class ProjectsController < ApplicationController
     end
   end
 
-  # DELETE /projects/1
-  # DELETE /projects/1.xml
   def destroy
     if current_user.is_admin
       @project = Project.find(params[:id])
       @project.destroy
 
-      respond_to do |format|
-        format.html { redirect_to(projects_url) }
-        format.xml  { head :ok }
-      end
+      redirect_to(projects_url)
     else
       redirect_to new_session_path
     end

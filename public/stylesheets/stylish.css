@@ -412,3 +412,11 @@ img#upper_logo {
   margin-top: -30px;
   margin-bottom: 10px;
 }
+
+div.control {
+}
+
+  div.control div.changer {
+    float: left;
+    margin-left: 3px;
+  }
