@@ -8,7 +8,7 @@
       <% if worker.open_ticket_time.ticket.project.open_tickets.length > 1 %>
         <%= render :partial => "/tickets/ticket_to_close", :object => worker.open_ticket_time.ticket unless worker.open_ticket_time.ticket.closed_date %>
       <% elsif !worker.open_ticket_time.ticket.closed_date %>
-        <%= render :partial => "/projects/project_to_close", :object => worker.open_ticket_time.ticket.project %>
+        <%= render :partial => "/projects/project_to_change", :object => worker.open_ticket_time.ticket.project %>
       <% end %>
     </div>
     <div class="times">
