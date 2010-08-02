@@ -11,6 +11,10 @@ pdf.text "
 pdf.text "Invoice #" + @invoice.invoice_number
 pdf.text @invoice.invoice_date.strftime('%m-%d-%Y') + "
  "
+
+pdf.text @invoice.note.to_s + "
+ "
+
 @invoice.projects.each do |project|
   pdf.text project.title + ": " + one_dec(@invoice.project_details( project.id )[:hours]).to_s + " hours"
 end
