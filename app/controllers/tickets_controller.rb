@@ -7,7 +7,7 @@ class TicketsController < ApplicationController
   # GET /tickets.xml
   def index
     if current_user.is_admin
-      @tickets = Ticket.find(:all)
+      @tickets = Ticket.all
 
       respond_to do |format|
         format.html # index.html.erb

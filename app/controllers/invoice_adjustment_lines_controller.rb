@@ -2,7 +2,7 @@ class InvoiceAdjustmentLinesController < ApplicationController
   # GET /invoice_adjustment_lines
   # GET /invoice_adjustment_lines.xml
   def index
-    @invoice_adjustment_lines = InvoiceAdjustmentLine.find(:all)
+    @invoice_adjustment_lines = InvoiceAdjustmentLine.all
 
     respond_to do |format|
       format.html # index.html.erb

@@ -3,10 +3,8 @@ class ProjectUsersController < ApplicationController
 
   before_filter :login_required
 
-  # GET /project_users
-  # GET /project_users.xml
   def index
-    @project_users = ProjectUser.find(:all)
+    @project_users = ProjectUser.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,8 +12,6 @@ class ProjectUsersController < ApplicationController
     end
   end
 
-  # GET /project_users/1
-  # GET /project_users/1.xml
   def show
     @project_user = ProjectUser.find(params[:id])
 
@@ -25,8 +21,6 @@ class ProjectUsersController < ApplicationController
     end
   end
 
-  # GET /project_users/new
-  # GET /project_users/new.xml
   def new
     @project_user = ProjectUser.new
 
@@ -36,13 +30,10 @@ class ProjectUsersController < ApplicationController
     end
   end
 
-  # GET /project_users/1/edit
   def edit
     @project_user = ProjectUser.find(params[:id])
   end
 
-  # POST /project_users
-  # POST /project_users.xml
   def create
     @project_user = ProjectUser.new(params[:project_user])
 
@@ -58,8 +49,6 @@ class ProjectUsersController < ApplicationController
     end
   end
 
-  # PUT /project_users/1
-  # PUT /project_users/1.xml
   def update
     @project_user = ProjectUser.find(params[:id])
 
@@ -75,8 +64,6 @@ class ProjectUsersController < ApplicationController
     end
   end
 
-  # DELETE /project_users/1
-  # DELETE /project_users/1.xml
   def destroy
     @project_user = ProjectUser.find(params[:id])
     @project_user.destroy

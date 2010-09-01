@@ -1,11 +1,9 @@
 class UserAlertsController < ApplicationController
   before_filter :login_required
 
-  # GET /user_alerts
-  # GET /user_alerts.xml
   def index
     if current_user.is_admin
-      @user_alerts = UserAlert.find(:all)
+      @user_alerts = UserAlert.all
 
       respond_to do |format|
         format.html # index.html.erb
@@ -16,8 +14,6 @@ class UserAlertsController < ApplicationController
     end
   end
 
-  # GET /user_alerts/1
-  # GET /user_alerts/1.xml
   def show
     if current_user.is_admin
       @user_alert = UserAlert.find(params[:id])
@@ -31,8 +27,6 @@ class UserAlertsController < ApplicationController
     end
   end
 
-  # GET /user_alerts/new
-  # GET /user_alerts/new.xml
   def new
     if current_user.is_admin
       @user_alert = UserAlert.new
@@ -46,7 +40,6 @@ class UserAlertsController < ApplicationController
     end
   end
 
-  # GET /user_alerts/1/edit
   def edit
     if current_user.is_admin
       @user_alert = UserAlert.find(params[:id])
@@ -55,8 +48,6 @@ class UserAlertsController < ApplicationController
     end
   end
 
-  # POST /user_alerts
-  # POST /user_alerts.xml
   def create
     if current_user.is_admin
       @user_alert = UserAlert.new(params[:user_alert])
@@ -76,8 +67,6 @@ class UserAlertsController < ApplicationController
     end
   end
 
-  # PUT /user_alerts/1
-  # PUT /user_alerts/1.xml
   def update
     @user_alert = UserAlert.find(params[:id])
     if current_user.is_admin || current_user == @user_alert.user
@@ -97,8 +86,6 @@ class UserAlertsController < ApplicationController
     end
   end
 
-  # DELETE /user_alerts/1
-  # DELETE /user_alerts/1.xml
   def destroy
     if current_user.is_admin
       @user_alert = UserAlert.find(params[:id])

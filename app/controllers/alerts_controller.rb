@@ -4,7 +4,7 @@ class AlertsController < ApplicationController
   # GET /alerts
   # GET /alerts.xml
   def index
-    @alerts = Alert.find(:all)
+    @alerts = Alert.all
 
     respond_to do |format|
       format.html # index.html.erb

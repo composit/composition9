@@ -12,7 +12,7 @@
       <% end %>
     </div>
     <div class="times">
-      <% remote_form_for(worker.open_ticket_time, :update => "user_block", :html => { :id => "worker_form" }) do |f| %>
+      <%= form_for( worker.open_ticket_time, :update => "user_block", :html => { :id => "worker_form" }, :remote => true ) do |f| %>
         <%= text_field_tag "ticket_time[start_time]", worker.open_ticket_time.start_time, :size => "15", :onfocus => "worker_refresher = false", :onblur => "worker_refresher = true" %> -
         <%= text_field_tag "ticket_time[end_time]", Time.zone.now.strftime("%Y-%m-%d %H:%M:%S"), :size => "15" %>
         <% if worker.open_user_pause %>
@@ -27,19 +27,19 @@
         <% end %>
       <% end %>
       <% for pause in worker.pauses %>
-        <% remote_form_for(pause.new_user_pause, :update => "user_block", :html => { :id => "pause_" + pause.id.to_s }) do |f| %>
+        <%= form_for( pause.new_user_pause, :update => "user_block", :html => { :id => "pause_" + pause.id.to_s }, :remote => true ) do |f| %>
 					<%= f.hidden_field :user_id, :id => "user_pause_user_#{pause.id}" %>
           <%= f.hidden_field :pause_id, :id => "user_pause_pause_#{pause.id}"  %>
         <% end %>
       <% end %>
       <% if worker.open_user_pause %>
-        <% remote_form_for(worker.open_user_pause, :update => "user_block", :html => { :id => "end_pause_form" }) do |f| %>
+        <%= form_for( worker.open_user_pause, :update => "user_block", :html => { :id => "end_pause_form" }, :remote => true ) do |f| %>
         <% end %>
       <% end %>
     </div>
   <% elsif @next_ticket %>
     <div class="name">
-      <%=h @next_ticket.full_description %> <%= link_to_remote( "refresh", :update => "user_block", :url => new_ticket_time_path( :refresh_next_ticket => true ) ) %>
+      <%=h @next_ticket.full_description %> <%= link_to( "refresh", :update => "user_block", :remote => true, :url => new_ticket_time_path( :refresh_next_ticket => true ) ) %>
     </div>
     <div class="times">
       <%= render :partial => "/ticket_times/new_ticket_time", :object => worker.new_ticket_time(@next_ticket.id) %>

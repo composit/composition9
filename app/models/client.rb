@@ -1,5 +1,5 @@
 class Client < ActiveRecord::Base
-	named_scope :alphabetical, :order => :name
+	scope :alphabetical, :order => :name
 
   has_many :client_users
   has_many :users, :through => :client_users
@@ -14,9 +14,7 @@ class Client < ActiveRecord::Base
 
   attr_accessor :expanded_project
 
-  def before_create
-    self.active = true
-  end
+  before_create :set_active
 
   def minutes_worked( week_of = nil, user_id = nil )
     # projects.inject(0) { |total_minutes, project| total_minutes + project.minutes_worked(week_of, user_id) }
@@ -37,7 +35,7 @@ class Client < ActiveRecord::Base
   end
 
   def workers
-    client_users.find(:all, :conditions => "is_worker = 1")
+    client_users.where( "is_worker = 1" )
   end
 
   def open_projects(urgency = nil)
@@ -47,11 +45,11 @@ class Client < ActiveRecord::Base
       conditions_string += " and urgency = :urgency"
       conditions_hash.merge!( { :urgency => urgency } )
     end
-    projects.find(:all, :conditions => [ conditions_string, conditions_hash ], :order => "priority")
+    projects.where( conditions_string, conditions_hash ).order( "priority" )
   end
 
   def closed_projects
-    projects.find(:all, :conditions => "closed_date is not null", :order => "closed_date DESC")
+    projects.where( "closed_date is not null" ).order( "closed_date DESC" )
   end
 
   def open_hours(urgency = nil)
@@ -63,7 +61,7 @@ class Client < ActiveRecord::Base
       conditions_hash.merge!( { :urgency => urgency } )
     end
     logger.info("almost done loading open hours " + urgency.to_s)
-    projects.find(:all, :conditions => [ conditions_string, conditions_hash ]).inject(0) { |total_hours, project| total_hours + project.open_hours }
+    projects.where( conditions_string, conditions_hash ).inject(0) { |total_hours, project| total_hours + project.open_hours }
   end
 
   def new_project(user_id, urgency)
@@ -102,4 +100,9 @@ class Client < ActiveRecord::Base
     end
     return false
   end
+
+  private
+    def set_active
+      self.active = true
+    end
 end

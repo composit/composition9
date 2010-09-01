@@ -5,7 +5,7 @@
   </div>
   <%= render :partial => "/ticket_comments/ticket_comment", :collection => project_ticket.ticket_comments %>
   <div id="ticket_<%=h project_ticket.id %>_new_comment_form" style="display:none">
-    <% remote_form_for(project_ticket.new_ticket_comment(current_user.id), :update => "projects_client") do |f| %>
+    <%= form_for( project_ticket.new_ticket_comment(current_user.id), :update => "projects_client", :remote => true) do |f| %>
       <%= f.hidden_field :ticket_id %>
       <%= f.hidden_field :user_id %>
       <%= f.text_area :comment, :rows => "2", :cols => "60" %>

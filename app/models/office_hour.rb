@@ -1,7 +1,7 @@
 class OfficeHour < ActiveRecord::Base
-  named_scope :current, lambda { { :conditions => [ "day_of_week = :day_of_week && start_time <= :now_time && end_time > :now_time", { :day_of_week => Time.zone.now.wday, :now_time => Time.zone.now.strftime("%H:%M:%S") } ] } }
-  named_scope :up_to_day, lambda { |value| { :conditions => [ "day_of_week <= ?", value ] } }
-  named_scope :chronological, :order => "day_of_week, start_time"
+  scope :current, lambda { { :conditions => [ "day_of_week = :day_of_week && start_time <= :now_time && end_time > :now_time", { :day_of_week => Time.zone.now.wday, :now_time => Time.zone.now.strftime("%H:%M:%S") } ] } }
+  scope :up_to_day, lambda { |value| { :conditions => [ "day_of_week <= ?", value ] } }
+  scope :chronological, :order => "day_of_week, start_time"
 
   belongs_to :client
   belongs_to :user
@@ -10,7 +10,7 @@ class OfficeHour < ActiveRecord::Base
 
   attr_accessor :delete_me
 
-  def before_validation_on_create
+  before_validation( :on => :create ) do
     self.day_of_week = 6 unless( day_of_week )
     self.start_time = "18:30" unless( start_time )
     self.end_time = "19:30" unless( end_time )

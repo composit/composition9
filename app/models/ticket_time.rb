@@ -1,6 +1,6 @@
 class TicketTime < ActiveRecord::Base
-  named_scope :uninvoiced, :conditions => "invoice_id is null"
-  named_scope :before_date, lambda { |value| { :conditions => [ "start_time <= ?", value.strftime("%Y-%m-%d %H:%M:%S") ] } }
+  scope :uninvoiced, :conditions => "invoice_id is null"
+  scope :before_date, lambda { |value| { :conditions => [ "start_time <= ?", value.strftime("%Y-%m-%d %H:%M:%S") ] } }
 
   belongs_to :ticket
   belongs_to :user
@@ -9,7 +9,7 @@ class TicketTime < ActiveRecord::Base
   validates_presence_of :ticket_id, :user_id, :start_time
   validates_presence_of :end_time, :on => :update
 
-  def before_validation_on_create
+  before_validation( :on => :create ) do
     self.start_time = Time.zone.now unless start_time
   end
 

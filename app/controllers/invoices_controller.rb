@@ -3,14 +3,12 @@ class InvoicesController < ApplicationController
 
   before_filter :login_required
 
-  # GET /invoices
-  # GET /invoices.xml
   def index
     if params[:client_id]
       @client = Client.find(params[:client_id])
       @invoices = @client.invoices
     else
-      @invoices = Invoice.find(:all)
+      @invoices = Invoice.all
     end
 
     respond_to do |format|
@@ -19,8 +17,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # GET /invoices/1
-  # GET /invoices/1.xml
   def show
     @invoice = Invoice.find(params[:id])
 
@@ -31,8 +27,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # GET /invoices/new
-  # GET /invoices/new.xml
   def new
     if current_user.is_admin && params[:client_id]
       @client = Client.find( params[:client_id] )
@@ -50,7 +44,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # GET /invoices/1/edit
   def edit
     if current_user.is_admin
       @invoice = Invoice.find(params[:id])
@@ -59,8 +52,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # POST /invoices
-  # POST /invoices.xml
   def create
     @client = Client.find(params[:invoice][:client_id])
     if current_user.is_admin
@@ -81,8 +72,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # PUT /invoices/1
-  # PUT /invoices/1.xml
   def update
     if current_user.is_admin
       @invoice = Invoice.find(params[:id])
@@ -102,8 +91,6 @@ class InvoicesController < ApplicationController
     end
   end
 
-  # DELETE /invoices/1
-  # DELETE /invoices/1.xml
   def destroy
     if current_user.is_admin
       @invoice = Invoice.find(params[:id])

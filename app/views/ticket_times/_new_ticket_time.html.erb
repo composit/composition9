@@ -1,6 +1,6 @@
 <div class='control'>
   <%= link_to_function "&nbsp;&middot; start", "document.forms['new_ticket_" + new_ticket_time.ticket_id.to_s + "'].onsubmit()" %>
-  <% remote_form_for(new_ticket_time, :update => "user_block", :html => { :id => "new_ticket_" + new_ticket_time.ticket_id.to_s }) do |f| %>
+  <%= form_for( new_ticket_time, :update => "user_block", :html => { :id => "new_ticket_" + new_ticket_time.ticket_id.to_s }, :remote => true ) do |f| %>
     <%= f.hidden_field :ticket_id %>
     <%= f.hidden_field :user_id %>
   <% end %>

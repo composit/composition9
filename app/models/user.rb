@@ -3,8 +3,8 @@ class User < ActiveRecord::Base
   # Virtual attribute for the unencrypted password
   attr_accessor :password
 
-  named_scope :admin, :conditions => { :is_admin => true }
-	named_scope :alphabetical, :order => :login
+  scope :admin, :conditions => { :is_admin => true }
+	scope :alphabetical, :order => :login
 
   has_many :client_users
   has_many :clients, :through => :client_users
@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   # anything else you want your user to change should be added here.
   attr_accessible :login, :email, :password, :password_confirmation, :phone, :address_line_1, :address_line_2, :city, :state, :zip, :is_admin, :time_zone, :office_hour_attributes, :number_of_office_hours_to_add
 
-  def before_validation
+  before_validation do
     phone.gsub!(/\D/, '') if phone
   end
 
@@ -55,7 +55,7 @@ class User < ActiveRecord::Base
 
   # Authenticates a user by their login name and unencrypted password.  Returns the user or nil.
   def self.authenticate(login, password)
-    u = find :first, :conditions => ['login = ? and activated_at IS NOT NULL', login] # need to get the salt
+    u = first( :conditions => ['login = ? and activated_at IS NOT NULL', login] ) # need to get the salt
     u && u.authenticated?(password) ? u : nil
   end
 
@@ -104,37 +104,37 @@ class User < ActiveRecord::Base
   end
 
   def belongs_to_client?(client_id)
-    client_users.find(:first, :conditions => [ "client_id = ?", client_id ])
+    client_users.first( :conditions => [ "client_id = ?", client_id ] )
   end
 
   def is_client_admin?(client_id)
-    client_users.find(:first, :conditions => [ "client_id = ? && is_admin = 1", client_id ])
+    client_users.first( :conditions => [ "client_id = ? && is_admin = 1", client_id ] )
   end
 
   def is_worker_for_client?(client_id)
-    client_users.find(:first, :conditions => [ "client_id = ? && is_worker = 1", client_id ])
+    client_users.first( :conditions => [ "client_id = ? && is_worker = 1", client_id ] )
   end
 
   def can_view_client_invoices?(client_id)
-    client_users.find(:first, :conditions => [ "client_id = ? && can_view_invoices = 1", client_id ])
+    client_users.first( :conditions => [ "client_id = ? && can_view_invoices = 1", client_id ] )
   end
 
   def is_worker?
-    client_users.find(:first, :conditions => "is_worker = 1")
+    client_users.first( :conditions => "is_worker = 1" )
   end
 
   def active_clients( client_active = true )
     clients = []
-    client_users.find(:all, :conditions => "is_worker = 1", :order => "priority").each { |client_user| clients << client_user.client if client_user.client.active == client_active }
+    client_users.where( "is_worker = 1" ).order( "priority" ).each { |client_user| clients << client_user.client if client_user.client.active == client_active }
     clients
   end
 
   def open_ticket_time
-    ticket_times.find(:first, :conditions => "end_time is null")
+    ticket_times.first( :conditions => "end_time is null" )
   end
 
   def open_user_pause
-    user_pauses.find(:first, :conditions => "end_time is null")
+    user_pauses.first( :conditions => "end_time is null" )
   end
 
   def hours_worked(week_of)
@@ -157,7 +157,7 @@ class User < ActiveRecord::Base
     if week_of
       conditions = [ "start_time >= :week_start_time and start_time < :week_end_time", { :week_start_time => TicketTime.week_start_time(week_of).utc, :week_end_time => TicketTime.week_end_time(week_of).utc } ]
     end
-    ticket_times.find(:all, :conditions => conditions).inject(0) { |total_dollars, ticket_time| total_dollars + ticket_time.dollars }
+    ticket_times.where( conditions ).inject(0) { |total_dollars, ticket_time| total_dollars + ticket_time.dollars }
   end
 
   def new_ticket_time(ticket_id)
@@ -171,8 +171,8 @@ class User < ActiveRecord::Base
       (0..1).each do |hours_left|
         prioritized_client_users.each do |client_user|
           if client_user.client.hours_left_this_week > hours_left * -1 && client_user.client.active
-            client_user.client.projects.find(:all, :conditions => ["closed_date is null && urgency = ?", urgency], :order => "priority").each do |project|
-              project.tickets.find(:all, :conditions => [ "worker_id = :worker_id && closed_date is null", { :worker_id => id } ], :order => "priority").each do |ticket|
+            client_user.client.projects.where( "closed_date is null && urgency = ?", urgency ).order( "priority" ).each do |project|
+              project.tickets.where( "worker_id = :worker_id && closed_date is null", { :worker_id => id } ).order( "priority" ).each do |ticket|
                 highest_priority_ticket = ticket unless highest_priority_ticket
               end unless highest_priority_ticket
             end unless highest_priority_ticket
@@ -199,7 +199,7 @@ class User < ActiveRecord::Base
   end
 
   def active_user_alerts
-    user_alerts.find(:all, :conditions => "hidden_time is null")
+    user_alerts.where( "hidden_time is null" )
   end
 
   def committed_week_hours
@@ -264,7 +264,7 @@ class User < ActiveRecord::Base
     conditions = [ "start_time >= ? AND start_time <= ?", start_date, end_date ]
     day = ( track_date.wday > 5 ? 5 : track_date.wday )
     budget = ( ( track_date.strftime( "%U" ).to_i - 1 ) * WEEK_DOLLAR_ESTIMATE ) + ( day * WEEK_DOLLAR_ESTIMATE / 5 )
-    dollars = ticket_times.find(:all, :conditions => [ "start_time >= ? AND start_time <= ?", start_date, end_date ] ).inject(0) { |total_dollars, ticket_time| total_dollars + ticket_time.dollars }
+    dollars = ticket_times.where( "start_time >= ? AND start_time <= ?", start_date, end_date ).inject(0) { |total_dollars, ticket_time| total_dollars + ticket_time.dollars }
     adjustments = budget_adjustments.sum( :amount, :conditions => [ "adjustment_date >= ? AND adjustment_date <= ?", start_date, end_date ] )
     return( ( -1 * budget ) + adjustments + dollars )
   end

@@ -8,7 +8,7 @@ class TicketCommentsController < ApplicationController
   # GET /ticket_comments.xml
   def index
     if current_user.is_admin
-      @ticket_comments = TicketComment.find(:all)
+      @ticket_comments = TicketComment.all
 
       respond_to do |format|
         format.html # index.html.erb

@@ -1,11 +1,11 @@
 <div class="thing_controls">
-  <%=h expanded_project.open_tickets.length.to_s + " " + (expanded_project.open_tickets.length == 1 ? "ticket" : "tickets") %>: <%= link_to_remote "hide", :update => "project_" + expanded_project.id.to_s + "_tickets", :url => project_path(expanded_project, :collapser => true), :method => :get %>
+  <%=h expanded_project.open_tickets.length.to_s + " " + ( expanded_project.open_tickets.length == 1 ? "ticket" : "tickets" ) %>: <%= link_to "hide", :update => "project_" + expanded_project.id.to_s + "_tickets", :url => project_path( expanded_project, :collapser => true ), :remote => true, :method => :get %>
 </div>
 <div id="project_<%=h expanded_project.id %>_tickets">
   <%= render :partial => "/tickets/project_ticket", :collection => ( project_status == 'closed' ? expanded_project.tickets : expanded_project.open_tickets ), :locals => { :project_status => project_status } %>
 </div>
 <div id="project_<%=h expanded_project.id %>_new_ticket_form" style="display:none">
-  <% remote_form_for(expanded_project.new_ticket(current_user.id), :update => "projects_client") do |f| %>
+  <%= form_for( expanded_project.new_ticket( current_user.id ), :update => "projects_client", :remote => true ) do |f| %>
     <%= f.hidden_field :project_id %>
     <%= f.hidden_field :created_by_user_id %>
     <p>

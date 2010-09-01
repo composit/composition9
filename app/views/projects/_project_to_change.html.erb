@@ -2,7 +2,7 @@
 <% (1..3).each do |urgency| %>
   <div class="changer">
     <% unless project_to_change.urgency == urgency %>
-      <% remote_form_for( project_to_change, :update => "projects_client" ) do |f| %>
+      <%= form_for( project_to_change, :update => "projects_client", :remote => true ) do |f| %>
         <%= f.hidden_field :urgency, :value => urgency %>
         <%= link_to_function urgency, "$(this).up('form').onsubmit()" %>
       <% end %>
@@ -10,7 +10,7 @@
   </div>
 <% end %>
 <div class="changer">
-  <% remote_form_for( project_to_change, :update => "projects_client" ) do |f| %>
+  <%= form_for( project_to_change, :update => "projects_client", :remote => true ) do |f| %>
     <%= f.hidden_field :close_me, :value => '1' %>
     <%= link_to_function "close", "$(this).up('form').onsubmit()" %>
   <% end %>

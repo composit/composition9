@@ -15,27 +15,15 @@ class Project < ActiveRecord::Base
   validates_numericality_of :billing_rate_dollars, :urgency
   validates_inclusion_of :billing_rate_unit, :in => BILLING_RATE_UNITS, :message => "must be a valid billing rate unit"
 
+  after_create :create_first_ticket
+  after_update :close_tickets
+
   def close_me=(close)
     @close_me = self.closed_date = Date.today if close == '1'
   end
 
   def close_me
     @close_me
-  end
-
-  def after_create
-    user = User.find(created_by_user_id)
-    unless user.is_admin
-      ticket = new_ticket(user.id)
-      ticket.description = title
-      ticket.save
-    end
-  end
-
-  def after_update
-    if closed_date
-      tickets.each { |ticket| ticket.update_attribute( "closed_date", closed_date ) unless ticket.closed_date }
-    end
   end
 
   def minutes_worked(week_of = nil, user_id = nil)
@@ -59,7 +47,7 @@ class Project < ActiveRecord::Base
   end
 
   def open_tickets
-    tickets.find(:all, :conditions => "closed_date is null")
+    tickets.where( "closed_date is null" )
   end
 
   def open_hours
@@ -71,7 +59,7 @@ class Project < ActiveRecord::Base
   end
 
   def new_ticket(user_id)
-    if priority_ticket = tickets.find(:first, :conditions => "closed_date is null", :order => "priority DESC")
+    if priority_ticket = tickets.first( :conditions => "closed_date is null", :order => "priority DESC")
       priority = priority_ticket.priority + 1
     else
       priority = 0
@@ -94,7 +82,7 @@ class Project < ActiveRecord::Base
         conditions_string += " && priority <= :priority"
         conditions_hash.merge!({ :priority => priority })
       end
-      estimated_hours += client.projects.find(:all, :conditions => [ conditions_string, conditions_hash ], :order => "priority").inject(0) { |total_hours, project| total_hours + project.estimated_hours }
+      estimated_hours += client.projects.where( conditions_string, conditions_hash ).order( "priority" ).inject(0) { |total_hours, project| total_hours + project.estimated_hours }
     end
     if client.committed_week_hours == 0
       estimated_weeks = 0
@@ -111,4 +99,20 @@ class Project < ActiveRecord::Base
     end
     ticket_times
   end
+
+  private
+    def create_first_ticket
+      user = User.find( created_by_user_id )
+      unless user.is_admin
+        ticket = new_ticket(user.id)
+        ticket.description = title
+        ticket.save
+      end
+    end
+
+    def close_tickets
+      if closed_date
+        tickets.each { |ticket| ticket.update_attribute( "closed_date", closed_date ) unless ticket.closed_date }
+      end
+    end
 end

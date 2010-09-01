@@ -7,7 +7,7 @@ class ClientUsersController < ApplicationController
   # GET /client_users
   # GET /client_users.xml
   def index
-    @client_users = ClientUser.find(:all)
+    @client_users = ClientUser.all
 
     respond_to do |format|
       format.html # index.html.erb

@@ -8,9 +8,9 @@ class UserPausesController < ApplicationController
   # GET /user_pauses.xml
   def index
     if current_user.is_admin
-      @user_pauses = UserPause.find(:all)
+      @user_pauses = UserPause.all
     else
-      @user_pauses = current_user.user_pauses.find(:all)
+      @user_pauses = current_user.user_pauses
     end
 
     respond_to do |format|

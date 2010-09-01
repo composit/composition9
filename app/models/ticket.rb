@@ -13,7 +13,7 @@ class Ticket < ActiveRecord::Base
     self.closed_date = Time.zone.now
   end
 
-  def before_validation_on_create
+  before_validation( :on => :create ) do
     self.worker_id = project.client.workers.first.user.id unless worker_id if project
   end
 
@@ -39,7 +39,7 @@ class Ticket < ActiveRecord::Base
   end
 
   def unbilled_ticket_times
-    ticket_times.find( :all, :conditions => "invoice_id is null and end_time is not null" )
+    ticket_times.where( "invoice_id is null and end_time is not null" )
   end
 
   def closed?

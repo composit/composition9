@@ -1,10 +1,6 @@
 # This controller handles the login/logout function of the site.  
 class SessionsController < ApplicationController
-
   layout "admin"
-
-  # Be sure to include AuthenticationSystem in Application Controller instead
-  include AuthenticatedSystem
 
   # render new.rhtml
   def new
@@ -24,7 +20,7 @@ class SessionsController < ApplicationController
       elsif current_user.is_admin
         redirect_to clients_path
       else
-        client_id = current_user.clients.find(:first).id.to_s
+        client_id = current_user.clients.first.id.to_s
         # redirect_to projects_path( :client_id => client_id )
         redirect_to client_path( client_id )
       end

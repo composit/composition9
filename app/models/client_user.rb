@@ -1,5 +1,5 @@
 class ClientUser < ActiveRecord::Base
-  named_scope :prioritized, :order => "priority"
+  scope :prioritized, :order => "priority"
 
   belongs_to :client
   belongs_to :user

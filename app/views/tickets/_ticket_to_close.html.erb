@@ -1,4 +1,4 @@
 <%= link_to_function "close ticket", "document.forms['close_ticket_" + ticket_to_close.id.to_s + "'].onsubmit()" %>
-<% remote_form_for(ticket_to_close, :update => "projects_client", :html => { :id => "close_ticket_" + ticket_to_close.id.to_s }) do |f| %>
+<%= form_for( ticket_to_close, :update => "projects_client", :html => { :id => "close_ticket_" + ticket_to_close.id.to_s }, :remote => true ) do |f| %>
   <%= f.hidden_field :close_me, :value => '1' %>
 <% end %>

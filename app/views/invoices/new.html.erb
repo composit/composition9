@@ -1,5 +1,5 @@
 <h1><%=h @client.name  %></h1>
-<% form_for(@invoice) do |f| %>
+<%= form_for( @invoice ) do |f| %>
   <%= f.error_messages %>
 
   <%= f.hidden_field :client_id %>

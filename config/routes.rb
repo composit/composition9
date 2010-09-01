@@ -15,13 +15,12 @@ C9::Application.routes.draw do
   resources :users
   resource :session
 
-  match 'activate/:activation_code', 'users#activate', :activation_code => nil
-  match xxsignup '/signup', :controller => 'users', :action => 'new'
-  map.login '/login', :controller => 'sessions', :action => 'new'
-  map.logout '/logout', :controller => 'sessions', :action => 'destroy'
+  match '/activate/:activation_code' => 'users#activate', :as => :activate, :activation_code => nil
+  match '/signup' => 'users#new', :as => :signup
+  match '/login' => 'sessions#new', :as => :login
+  match '/logout' => 'sessions#destroy', :as => :logout
+  match '/:controller(/:action(/:id))'
 
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
   root :to => 'clients#index'
 
   # The priority is based upon order of creation:

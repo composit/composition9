@@ -18,7 +18,7 @@
         Urgency 3 projects are for "pending" projects.  These projects will only be addressed once all Urgency 1 and 2 projects have been completed.
       <% end %>
     </p>
-    <% remote_form_for(projects_client.new_project(current_user.id, urgency), :update => "projects_client") do |f| %>
+    <%= form_for( projects_client.new_project( current_user.id, urgency ), :update => "projects_client", :remote => true ) do |f| %>
       <%= f.hidden_field :client_id %>
       <%= f.hidden_field :created_by_user_id %>
       <p>

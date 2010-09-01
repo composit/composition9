@@ -1,6 +1,6 @@
 <% title "Office Hours" %>
 
-<% form_for( @user ) do |f| %>
+<%= form_for( @user ) do |f| %>
     <table>
     <tr>
       <th>Client</th>
@@ -9,7 +9,7 @@
       <th>End Time</th>
     </tr>
 		<% @user.office_hours.chronological.each_with_index do |office_hour, n| %>
-      <% fields_for( "user[office_hour_attributes][#{n}]", office_hour ) do |u| %>
+      <%= fields_for( "user[office_hour_attributes][#{n}]", office_hour ) do |u| %>
         <tr>
           <td><%= u.select :client_id, Client.alphabetical.collect { |client| [ client.name, client.id ] } %></td>
           <td><%= u.select :day_of_week, Date::ABBR_DAYNAMES.each_with_index %></td>

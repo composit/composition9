@@ -3,10 +3,8 @@ class TicketTimesController < ApplicationController
 
   before_filter :login_required
 
-  # GET /ticket_times
-  # GET /ticket_times.xml
   def index
-    @ticket_times = TicketTime.find(:all)
+    @ticket_times = TicketTime.all
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,8 +12,6 @@ class TicketTimesController < ApplicationController
     end
   end
 
-  # GET /ticket_times/1
-  # GET /ticket_times/1.xml
   def show
     @ticket_time = TicketTime.find(params[:id])
 
@@ -25,8 +21,6 @@ class TicketTimesController < ApplicationController
     end
   end
 
-  # GET /ticket_times/new
-  # GET /ticket_times/new.xml
   def new
     @ticket_time = TicketTime.new
 
@@ -37,17 +31,14 @@ class TicketTimesController < ApplicationController
     end
   end
 
-  # GET /ticket_times/1/edit
   def edit
     @ticket_time = TicketTime.find(params[:id])
   end
 
-  # POST /ticket_times
-  # POST /ticket_times.xml
   def create
     @ticket_time = TicketTime.new(params[:ticket_time])
 
-    current_user.ticket_times.find(:all, :conditions => "end_time is null").each do |ticket_time|
+    current_user.ticket_times.where( "end_time is null" ).each do |ticket_time|
       ticket_time.update_attributes( :end_time => Time.zone.now )
     end
 
@@ -65,8 +56,6 @@ class TicketTimesController < ApplicationController
     end
   end
 
-  # PUT /ticket_times/1
-  # PUT /ticket_times/1.xml
   def update
     @ticket_time = TicketTime.find(params[:id])
 
@@ -84,8 +73,6 @@ class TicketTimesController < ApplicationController
     end
   end
 
-  # DELETE /ticket_times/1
-  # DELETE /ticket_times/1.xml
   def destroy
     @ticket_time = TicketTime.find(params[:id])
     @ticket_time.destroy

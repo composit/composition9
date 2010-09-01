@@ -1,9 +1,0 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-one:
-  action_statement: added a comment
-  client: one
-  project: one
-  ticket: one
-  ticket_comment: one
-  user: one

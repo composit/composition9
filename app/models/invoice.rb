@@ -1,5 +1,5 @@
 class Invoice < ActiveRecord::Base
-  named_scope :unpaid, :conditions => { :paid_date => nil }
+  scope :unpaid, :conditions => { :paid_date => nil }
 
   belongs_to :client
   has_many :ticket_times
@@ -8,9 +8,7 @@ class Invoice < ActiveRecord::Base
 
   validates_presence_of :client_id, :invoice_date
 
-  def before_destroy
-    ticket_times.each { |ticket_time| ticket_time.update_attribute( :invoice_id, nil ) }
-  end
+  before_destroy :unset_tickets
 
   def invoice_number
     sprintf("%03d", client.id.to_s) + invoice_date.strftime('%y%m') + sprintf("%03d", id.to_s)
@@ -30,7 +28,7 @@ class Invoice < ActiveRecord::Base
 
   def include_ticket_times=( times )
     times.each do |idx, value|
-      ticket_times << TicketTime.find(idx) if value == '1'
+      ticket_times << TicketTime.find( idx ) if value == '1'
     end
   end
 
@@ -46,7 +44,7 @@ class Invoice < ActiveRecord::Base
     dollars = 0
     minutes = 0
     Project.find( project_id ).tickets.each do |ticket|
-      ticket.ticket_times.find( :all, :conditions => [ "invoice_id = :invoice_id", { :invoice_id => id } ] ).each do |ticket_time|
+      ticket.ticket_times.where( "invoice_id = :invoice_id", { :invoice_id => id } ).each do |ticket_time|
         minutes += ticket_time.minutes_worked
         dollars += ticket_time.dollars
       end
@@ -65,4 +63,9 @@ class Invoice < ActiveRecord::Base
     end
     status
   end
+
+  private
+    def unset_tickets
+      ticket_times.each { |ticket_time| ticket_time.update_attribute( :invoice_id, nil ) }
+    end
 end

@@ -1,4 +1,4 @@
 <div class="thing_controls">
   <% tickets = ( project_status == 'closed' ? collapsed_project.tickets : collapsed_project.open_tickets ) %>
-  <%=h tickets.length.to_s + " " + (tickets.length == 1 ? "ticket" : "tickets") %>: <%= link_to_remote "show", :update => "project_" + collapsed_project.id.to_s + "_tickets", :url => project_path(collapsed_project, :project_status => project_status), :method => :get %>
+  <%=h tickets.length.to_s + " " + (tickets.length == 1 ? "ticket" : "tickets") %>: <%= link_to "show", :update => "project_" + collapsed_project.id.to_s + "_tickets", :url => project_path(collapsed_project, :remote => true, :project_status => project_status), :method => :get %>
 </div>

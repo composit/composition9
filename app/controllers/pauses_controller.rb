@@ -4,13 +4,11 @@ class PausesController < ApplicationController
 
   before_filter :login_required
 
-  # GET /pauses
-  # GET /pauses.xml
   def index
     if current_user.is_admin
-      @pauses = Pause.find(:all)
+      @pauses = Pause.all
     else
-      @pauses = current_user.pauses.find(:all)
+      @pauses = current_user.pauses
     end
 
     respond_to do |format|
@@ -19,8 +17,6 @@ class PausesController < ApplicationController
     end
   end
 
-  # GET /pauses/1
-  # GET /pauses/1.xml
   def show
     @pause = Pause.find(params[:id])
 
@@ -34,8 +30,6 @@ class PausesController < ApplicationController
     end
   end
 
-  # GET /pauses/new
-  # GET /pauses/new.xml
   def new
     @pause = Pause.new
 
@@ -45,7 +39,6 @@ class PausesController < ApplicationController
     end
   end
 
-  # GET /pauses/1/edit
   def edit
     @pause = Pause.find(params[:id])
     unless current_user.is_admin || @pause.user == current_user
@@ -53,8 +46,6 @@ class PausesController < ApplicationController
     end
   end
 
-  # POST /pauses
-  # POST /pauses.xml
   def create
     @pause = Pause.new(params[:pause])
 
@@ -74,8 +65,6 @@ class PausesController < ApplicationController
     end
   end
 
-  # PUT /pauses/1
-  # PUT /pauses/1.xml
   def update
     @pause = Pause.find(params[:id])
 
@@ -95,8 +84,6 @@ class PausesController < ApplicationController
     end
   end
 
-  # DELETE /pauses/1
-  # DELETE /pauses/1.xml
   def destroy
     @pause = Pause.find(params[:id])
     if current_user.is_admin || @pause.user == current_user
